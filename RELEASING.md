@@ -26,14 +26,14 @@ Chơi thử 1 trận và kiểm tra: menu chính, hướng dẫn, lên cấp, bo
 
 ```bash
 cd /Users/musual/GameVoHan
-/Applications/Godot.app/Contents/MacOS/Godot --headless --path . --export-release "Windows Desktop" "builds/windows/PixelHordeSurvival.exe"
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path . --export-release "Windows Desktop" "builds/windows/Pixel Horde Survival.exe"
 
 mkdir -p builds/release
 cd builds/windows
 zip -r ../release/PixelHordeSurvival-windows-x86_64.zip . -x "*.pdb"
 ```
 
-File zip phải chứa `PixelHordeSurvival.exe` ở ngay gốc (không lồng thêm thư mục).
+File zip chứa `Pixel Horde Survival.exe` ở ngay gốc (không lồng thêm thư mục).
 
 ## 4. Cập nhật version.json + changelog
 

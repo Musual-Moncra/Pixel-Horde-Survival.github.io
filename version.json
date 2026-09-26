@@ -5,10 +5,10 @@
   "download": {
     "windows": {
       "label": "Windows 10 / 11 (64-bit)",
-      "url": "https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/latest",
+      "url": "https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/download/v0.1.0/PixelHordeSurvival-windows-x86_64.zip",
       "file_name": "PixelHordeSurvival-windows-x86_64.zip",
-      "size": "",
-      "sha256": ""
+      "size": "37.2 MB",
+      "sha256": "66bb94f324d4fa9fa96e65ec325ce13af069c136f4ccfa3ac5f2ff062b51e25b"
     }
   },
   "changelog": [
