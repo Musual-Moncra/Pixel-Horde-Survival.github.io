@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://musual-moncra.github.io/Pixel-Horde-Survival.github.io/sitemap.xml

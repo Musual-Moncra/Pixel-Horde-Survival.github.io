@@ -1,0 +1,32 @@
+{
+  "version": "0.1.0",
+  "release_date": "2026-09-27",
+  "notes": "Bản phát hành đầu tiên: 11 chủng quái, 18 kỹ năng, 5 thủ lĩnh, 72 trang bị và vòng lặp sinh tồn vô tận.",
+  "download": {
+    "windows": {
+      "label": "Windows 10 / 11 (64-bit)",
+      "url": "https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/latest",
+      "file_name": "PixelHordeSurvival-windows-x86_64.zip",
+      "size": "",
+      "sha256": ""
+    }
+  },
+  "changelog": [
+    {
+      "version": "0.1.0",
+      "date": "2026-09-27",
+      "items": [
+        "Ra mắt Menu chính: Chơi mới, Tiếp tục trận đấu dở dang, Hướng dẫn, Trang bị, Cài đặt.",
+        "Hướng dẫn chơi 4 bước hiện tự động ở lần chơi đầu tiên.",
+        "Hệ thống sinh tồn vô tận: đợt quái mỗi 60 giây, xung kích giữa đợt, thủ lĩnh mỗi 5 phút.",
+        "11 chủng quái với kỹ năng riêng: Swarmer, Chaser, Brute, Mage, Bomber, Ghost, Necromancer, Assassin, Golem, Laser Eye, Venom Spitter.",
+        "5 thủ lĩnh: Hư Vô, Viêm Ma, Tử Thần, Cự Thần, Huyết Ma — mỗi thủ lĩnh mở khoá phần thưởng vĩnh viễn riêng.",
+        "18 kỹ năng nâng cấp theo cấp độ + kỹ năng chủ động dùng bằng phím E.",
+        "Hệ thống trang bị 72 món, 6 ô, 5 phẩm cấp, nâng cấp và quay Gacha bằng vàng.",
+        "Trụ hồi máu, rương báu, combo, lướt bất tử và tạm dừng/thu thập dữ liệu an toàn.",
+        "Tự động lưu trận đấu dở dang và chống mở 2 cửa sổ cùng lúc.",
+        "Kiểm tra cập nhật phiên bản mới ngay trong game."
+      ]
+    }
+  ]
+}

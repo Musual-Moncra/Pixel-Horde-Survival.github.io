@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Pixel Horde Survival">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#122044"/>
+      <stop offset="100%" stop-color="#080c16"/>
+    </linearGradient>
+    <linearGradient id="slime" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6ff0ff"/>
+      <stop offset="100%" stop-color="#1fa8d8"/>
+    </linearGradient>
+    <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <path d="M16 0H0V16" fill="none" stroke="#2b3f66" stroke-width="1" opacity="0.35"/>
+    </pattern>
+  </defs>
+
+  <rect x="0" y="0" width="512" height="512" rx="28" fill="url(#bg)"/>
+  <rect x="0" y="0" width="512" height="512" rx="28" fill="url(#grid)"/>
+  <rect x="2" y="2" width="508" height="508" rx="26" fill="none" stroke="#2b3f66" stroke-width="4"/>
+
+  <g transform="translate(72 168) scale(1.6)" fill="url(#slime)" shape-rendering="crispEdges">
+    <rect x="16" y="0" width="32" height="8"/>
+    <rect x="8" y="8" width="48" height="8"/>
+    <rect x="0" y="16" width="16" height="8"/>
+    <rect x="24" y="16" width="16" height="8"/>
+    <rect x="48" y="16" width="16" height="8"/>
+    <rect x="0" y="24" width="64" height="8"/>
+    <rect x="0" y="32" width="16" height="8"/>
+    <rect x="48" y="32" width="16" height="8"/>
+    <rect x="8" y="40" width="48" height="8"/>
+  </g>
+  <g transform="translate(208 134) scale(2.2)" fill="#ffd23f" shape-rendering="crispEdges">
+    <rect x="16" y="0" width="32" height="8"/>
+    <rect x="8" y="8" width="48" height="8"/>
+    <rect x="0" y="16" width="16" height="8"/>
+    <rect x="24" y="16" width="16" height="8"/>
+    <rect x="48" y="16" width="16" height="8"/>
+    <rect x="0" y="24" width="64" height="8"/>
+    <rect x="0" y="32" width="16" height="8"/>
+    <rect x="48" y="32" width="16" height="8"/>
+    <rect x="8" y="40" width="48" height="8"/>
+  </g>
+  <g transform="translate(392 168) scale(1.6)" fill="#ff6b6b" shape-rendering="crispEdges">
+    <rect x="16" y="0" width="32" height="8"/>
+    <rect x="8" y="8" width="48" height="8"/>
+    <rect x="0" y="16" width="16" height="8"/>
+    <rect x="24" y="16" width="16" height="8"/>
+    <rect x="48" y="16" width="16" height="8"/>
+    <rect x="0" y="24" width="64" height="8"/>
+    <rect x="0" y="32" width="16" height="8"/>
+    <rect x="48" y="32" width="16" height="8"/>
+    <rect x="8" y="40" width="48" height="8"/>
+  </g>
+
+  <text x="256" y="336" text-anchor="middle" font-family="Consolas, monospace" font-size="46" font-weight="bold" fill="#ffd23f" letter-spacing="2">PIXEL</text>
+  <text x="256" y="386" text-anchor="middle" font-family="Consolas, monospace" font-size="46" font-weight="bold" fill="#ffd23f" letter-spacing="2">HORDE</text>
+  <text x="256" y="424" text-anchor="middle" font-family="Consolas, monospace" font-size="22" font-weight="bold" fill="#38d9ff" letter-spacing="12">SURVIVAL</text>
+  <text x="256" y="466" text-anchor="middle" font-family="Consolas, monospace" font-size="14" fill="#9aabc8" letter-spacing="4">MUNO STUDIO</text>
+</svg>
