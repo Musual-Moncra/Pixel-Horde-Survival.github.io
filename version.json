@@ -1,19 +1,31 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.2",
   "release_date": "2026-09-27",
-  "notes": "Bản cập nhật 0.1.1: cập nhật hình ảnh, biểu tượng pixel, cân bằng và hiệu năng; sửa lỗi cache web giữ bản cũ.",
+  "notes": "Bản web chuyển sang chỉ dành cho điện thoại (PC tải bản Windows), sửa lỗi gian lận tiền khi bán trang bị và lỗi quái vây quanh; trang bị đột phá không giới hạn sao.",
   "download": {
     "windows": {
       "label": "Windows 10 / 11 (64-bit)",
       "url": "https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/latest/download/PixelHordeSurvival-windows-x86_64.zip",
       "file_name": "PixelHordeSurvival-windows-x86_64.zip",
-      "size": "37.1 MB",
-      "sha256": "0a8ed39f87ffcb1ba93d7dae5ca847501f95172afd722468fdf7401b645d56f4",
+      "size": "37.0 MB",
+      "sha256": "6db8f9c0628a6c744029e5e0242267548543fc9e26c9608d995b7d23e549065e",
       "release_page": "https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/latest",
-      "versioned_url": "https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/download/v0.1.1/PixelHordeSurvival-windows-x86_64.zip"
+      "versioned_url": "https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/download/v0.1.2/PixelHordeSurvival-windows-x86_64.zip"
     }
   },
   "changelog": [
+    {
+      "version": "0.1.2",
+      "date": "2026-09-27",
+      "items": [
+        "Bản web chỉ dành cho điện thoại: mở trên PC sẽ hiện nút tải bản Windows (.exe) thay vì vào game",
+        "Sửa lỗi gian lận tiền: bán trang bị rồi thoát tab không còn hồi sinh món để bán lặp lấy vàng",
+        "Sửa lỗi quái tự nhiên xuất hiện xung quanh người chơi: quái luôn sinh ngoài màn hình, không còn kẹt ở đợt 13",
+        "Trang bị đột phá không giới hạn sao, mở giới hạn cấp vô hạn (hệ số giảm dần sau 5 sao)",
+        "Vàng trên HUD hiển thị rõ số đang có và số kiếm được trong trận",
+        "Sửa bản dịch tiếng Anh cho ô trang bị trống, đồng hồ tạm dừng và nút Tiếp tục"
+      ]
+    },
     {
       "version": "0.1.1",
       "date": "2026-09-27",

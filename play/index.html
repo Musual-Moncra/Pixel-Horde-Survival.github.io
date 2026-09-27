@@ -236,6 +236,78 @@
 
 		#toast.is-on { display: block; }
 
+		/* ---------- Cổng chặn PC: bản web chỉ dành cho điện thoại ---------- */
+		#desktop-gate {
+			position: fixed;
+			inset: 0;
+			z-index: 50;
+			display: none;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 12px;
+			padding: calc(22px + var(--safe-t)) calc(22px + var(--safe-r)) calc(22px + var(--safe-b)) calc(22px + var(--safe-l));
+			background:
+				radial-gradient(120% 90% at 50% 0%, #2a2410 0%, #0a0a0b 62%),
+				var(--bg);
+			text-align: center;
+			overflow-y: auto;
+		}
+
+		#desktop-gate.is-on { display: flex; }
+
+		.gate-title {
+			margin: 0;
+			font-size: clamp(18px, 3.4vw, 26px);
+			letter-spacing: .1em;
+			color: var(--gold);
+			text-shadow: 0 2px 0 rgba(0, 0, 0, .6);
+		}
+
+		.gate-body {
+			margin: 0;
+			max-width: 40em;
+			font-size: clamp(12px, 2.4vw, 15px);
+			line-height: 1.6;
+			color: var(--ink);
+		}
+
+		.gate-btn {
+			display: inline-block;
+			margin-top: 4px;
+			min-height: 52px;
+			padding: 15px 28px;
+			border: 2px solid var(--gold);
+			border-radius: 14px;
+			background: linear-gradient(180deg, rgba(255, 207, 64, .24), rgba(255, 207, 64, .08));
+			color: var(--ink);
+			font-size: clamp(14px, 2.8vw, 18px);
+			font-weight: 700;
+			letter-spacing: .08em;
+			text-decoration: none;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+		}
+
+		.gate-btn:hover { border-color: #ffe89a; }
+
+		.gate-link {
+			color: var(--accent);
+			font-size: clamp(12px, 2.4vw, 14px);
+			text-decoration: underline;
+			text-underline-offset: 3px;
+		}
+
+		.gate-steps {
+			margin: 2px 0 0;
+			padding: 0;
+			list-style: none;
+			max-width: 40em;
+			color: var(--muted);
+			font-size: clamp(11px, 2.2vw, 13px);
+			line-height: 1.7;
+			text-align: left;
+		}
+
 		/* Máy tính: thu gọn bố cục cho gọn màn hình rộng */
 		@media (min-width: 820px) {
 			.boot-logo { width: min(22vw, 240px); max-height: 30vh; }
@@ -278,12 +350,27 @@
 		<small>Trò chơi thiết kế cho màn hình ngang</small>
 	</div>
 
+	<!-- PC: bản web chỉ dành cho điện thoại, PC phải tải bản Windows (.exe). -->
+	<div id="desktop-gate">
+		<h1 class="gate-title" id="gate-title">PC: TẢI BẢN WINDOWS (.EXE)</h1>
+		<p class="gate-body" id="gate-body">Bản chơi trên trình duyệt chỉ dành cho điện thoại và máy tính bảng.</p>
+		<a class="gate-btn" id="gate-download"
+			href="https://musual-moncra.github.io/Pixel-Horde-Survival.github.io/#download">⬇ TẢI BẢN WINDOWS (.EXE)</a>
+		<a class="gate-link" id="gate-home"
+			href="https://musual-moncra.github.io/Pixel-Horde-Survival.github.io/">Mở trang chủ</a>
+		<ul class="gate-steps">
+			<li id="gate-step1">1. Tải file .zip và giải nén ra một thư mục bất kỳ.</li>
+			<li id="gate-step2">2. Mở “Pixel Horde Survival.exe” để chơi (không cần cài đặt).</li>
+			<li id="gate-step3">3. Bản PC có bàn phím + chuột, màn hình lớn và lưu tiến trình riêng trên máy.</li>
+		</ul>
+	</div>
+
 	<div id="notice"></div>
 	<div id="toast"></div>
 
 	<script src="index.js"></script>
 	<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":1013692,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":915244,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 
 (function () {
@@ -326,6 +413,15 @@ const GODOT_THREADS_ENABLED = false;
 			tapAudio: '🔊 Chạm vào màn hình để bật âm thanh',
 			retry: 'Thử lại',
 			failed: 'Không tải được trò chơi',
+			gateTitle: 'PC: TẢI BẢN WINDOWS (.EXE)',
+			gateBody: 'Bản chơi trên trình duyệt chỉ dành cho điện thoại và máy tính bảng. Trên PC hãy tải bản Windows (.exe) để chơi bằng bàn phím và chuột.',
+			gateBtn: '⬇ TẢI BẢN WINDOWS (.EXE)',
+			gateHome: 'Mở trang chủ',
+			gateSteps: [
+				'1. Tải file .zip và giải nén ra một thư mục bất kỳ.',
+				'2. Mở "Pixel Horde Survival.exe" để chơi (không cần cài đặt).',
+				'3. Bản PC có bàn phím + chuột, màn hình lớn và lưu tiến trình riêng trên máy.',
+			],
 		},
 		en: {
 			title: 'PIXEL HORDE',
@@ -342,6 +438,15 @@ const GODOT_THREADS_ENABLED = false;
 			tapAudio: '🔊 Tap the screen to enable sound',
 			retry: 'Retry',
 			failed: 'Could not load the game',
+			gateTitle: 'PC: DOWNLOAD THE WINDOWS BUILD (.EXE)',
+			gateBody: 'The browser version is for phones and tablets only. On PC, download the Windows build (.exe) to play with keyboard and mouse.',
+			gateBtn: '⬇ DOWNLOAD WINDOWS (.EXE)',
+			gateHome: 'Open homepage',
+			gateSteps: [
+				'1. Download the .zip and extract it anywhere.',
+				'2. Open "Pixel Horde Survival.exe" to play (no install needed).',
+				'3. The PC build adds keyboard + mouse, a big screen and local save files.',
+			],
 		},
 	};
 
@@ -364,6 +469,24 @@ const GODOT_THREADS_ENABLED = false;
 		? params.get('autostart') !== '0'
 		: isTouch;
 
+	// ------------------------------------------------------------------
+	// 1b. Cổng chặn PC: bản web chỉ dành cho điện thoại/máy tính bảng.
+	//     Trên PC (chuột + bàn phím) người chơi phải tải bản Windows (.exe),
+	//     nên ở đây chặn TRƯỚC khi tải engine để PC không tốn ~38 MB wasm.
+	//     Cờ này được truyền sang game qua window.godotWebMobileAllowed
+	//     (xem scripts/game_info.gd) để chặn lần nữa ở phía Godot.
+	//     ?pc=1 để bỏ qua cổng chặn khi thử nghiệm trên máy tính.
+	// ------------------------------------------------------------------
+	const ua = navigator.userAgent || '';
+	const isMobileUA = /Android|iPhone|iPad|iPod|Windows Phone|webOS|BlackBerry|Opera Mini|IEMobile|Mobile/i.test(ua) ||
+		// iPad Pro (iPadOS 13+) tự nhận là "Macintosh" nhưng có cảm ứng đa điểm.
+		(/Macintosh/.test(ua) && (navigator.maxTouchPoints || 0) > 1);
+	const viewportMin = Math.min(window.innerWidth || 0, window.innerHeight || 0);
+	// Thiết bị cảm ứng màn hình nhỏ (tablet, trình giả lập thiết bị của DevTools).
+	const isHandheld = isTouch && viewportMin > 0 && viewportMin <= 900;
+	const mobileAllowed = params.get('pc') === '1' || isMobileUA || isHandheld;
+	window.godotWebMobileAllowed = mobileAllowed;
+
 	const boot = document.getElementById('boot');
 	const bootSub = document.getElementById('boot-sub');
 	const bootHint = document.getElementById('boot-hint');
@@ -376,8 +499,22 @@ const GODOT_THREADS_ENABLED = false;
 	const rotate = document.getElementById('rotate');
 	const notice = document.getElementById('notice');
 	const toast = document.getElementById('toast');
+	const desktopGate = document.getElementById('desktop-gate');
+	const gateTitle = document.getElementById('gate-title');
+	const gateBody = document.getElementById('gate-body');
+	const gateDownload = document.getElementById('gate-download');
+	const gateHome = document.getElementById('gate-home');
+	const gateStepEls = [
+		document.getElementById('gate-step1'),
+		document.getElementById('gate-step2'),
+		document.getElementById('gate-step3'),
+	];
 
 	function t(key) { return (STRINGS[lang] || STRINGS.vi)[key]; }
+
+	// Trang chủ + mục tải bản Windows (dùng cho bảng chặn PC).
+	const SITE_HOME = 'https://musual-moncra.github.io/Pixel-Horde-Survival.github.io/';
+	const SITE_DOWNLOAD = SITE_HOME + '#download';
 
 	function applyLang() {
 		document.documentElement.lang = lang;
@@ -390,6 +527,19 @@ const GODOT_THREADS_ENABLED = false;
 		if (state === 'idle' || state === 'ready') {
 			playBtn.textContent = t('play');
 		}
+		applyGateLang();
+	}
+
+	// Nhãn bảng chặn PC theo ngôn ngữ đang chọn.
+	function applyGateLang() {
+		gateTitle.textContent = t('gateTitle');
+		gateBody.textContent = t('gateBody');
+		gateDownload.textContent = t('gateBtn');
+		gateHome.textContent = t('gateHome');
+		const steps = t('gateSteps') || [];
+		gateStepEls.forEach(function (el, i) {
+			if (el) el.textContent = steps[i] || '';
+		});
 	}
 
 	langBtn.addEventListener('click', function () {
@@ -455,11 +605,24 @@ const GODOT_THREADS_ENABLED = false;
 		}, 320);
 	}
 
+	// PC: ẩn lớp khởi động và hiện bảng "tải bản Windows" (không tải engine).
+	function showDesktopGate() {
+		state = 'gated';
+		rotate.classList.remove('is-on');
+		desktopGate.classList.add('is-on');
+		if (boot.parentNode) boot.parentNode.removeChild(boot);
+	}
+
 	// freshGesture: true khi người chơi vừa chạm nút ngay lúc này (trình duyệt cho
 	// phép mở khoá âm thanh). false khi game tự vào sau khi tải xong — khi đó cử
 	// chỉ đã cũ, có thể bị chặn tiếng nên cần nhắc chạm thêm một lần.
 	function beginGame(freshGesture) {
 		if (booted) return;
+		// Chốt chặn cuối: PC không được vào game qua bất kỳ đường nào.
+		if (!mobileAllowed) {
+			showDesktopGate();
+			return;
+		}
 		booted = true;
 		state = 'running';
 		window.godotAutostart = autostart;
@@ -485,6 +648,10 @@ const GODOT_THREADS_ENABLED = false;
 
 	// Chạm nút chơi
 	playBtn.addEventListener('click', function () {
+		if (!mobileAllowed) {
+			showDesktopGate();
+			return;
+		}
 		if (state === 'ready' || state === 'idle') {
 			enterFullscreen();
 			beginGame(true);
@@ -496,6 +663,10 @@ const GODOT_THREADS_ENABLED = false;
 	});
 
 	toMenuBtn.addEventListener('click', function () {
+		if (!mobileAllowed) {
+			showDesktopGate();
+			return;
+		}
 		autostart = false;
 		if (state === 'ready' || state === 'idle') {
 			enterFullscreen();
@@ -508,7 +679,7 @@ const GODOT_THREADS_ENABLED = false;
 
 	// Phím cho máy tính: Enter/Space để chơi
 	window.addEventListener('keydown', function (ev) {
-		if (booted) return;
+		if (booted || !mobileAllowed) return;
 		if (ev.key === 'Enter' || ev.key === ' ' || ev.code === 'Space') {
 			ev.preventDefault();
 			playBtn.click();
@@ -606,7 +777,7 @@ const GODOT_THREADS_ENABLED = false;
 	// ------------------------------------------------------------------
 	function checkOrientation() {
 		const portrait = window.innerHeight > window.innerWidth;
-		rotate.classList.toggle('is-on', portrait && isTouch);
+		rotate.classList.toggle('is-on', portrait && isTouch && mobileAllowed);
 	}
 	window.addEventListener('resize', checkOrientation);
 	window.addEventListener('orientationchange', function () {
@@ -616,8 +787,16 @@ const GODOT_THREADS_ENABLED = false;
 	// ------------------------------------------------------------------
 	// 6. Kiểm tra tính năng trình duyệt rồi bắt đầu
 	// ------------------------------------------------------------------
+	gateDownload.href = SITE_DOWNLOAD;
+	gateHome.href = SITE_HOME;
 	applyLang();
 	checkOrientation();
+
+	if (!mobileAllowed) {
+		// PC: chặn trước khi chạm tới engine — không tải wasm/pck.
+		showDesktopGate();
+		return;
+	}
 
 	if (typeof Engine === 'undefined') {
 		// Thiếu file JS của engine: sai đường dẫn export hoặc upload thiếu file.
