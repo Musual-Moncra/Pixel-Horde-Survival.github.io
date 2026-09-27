@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="utf-8">
+	<!-- viewport-fit=cover: dùng hết màn hình tai thỏ; khoá zoom để không bị double-tap zoom khi chơi -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+	<meta name="theme-color" content="#0a0a0b">
+	<meta name="color-scheme" content="dark">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="apple-mobile-web-app-title" content="Pixel Horde">
+	<meta name="description" content="Pixel Horde Survival — chơi ngay trên trình duyệt, không cần tải.">
+	<title>Pixel Horde Survival</title>
+	<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
+<link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
+
+	<style>
+		:root {
+			--bg: #0a0a0b;
+			--ink: #eef3ff;
+			--muted: #8fa2c4;
+			--accent: #2fd4ff;
+			--gold: #ffcf40;
+			--danger: #ff5f6d;
+			--safe-t: env(safe-area-inset-top, 0px);
+			--safe-b: env(safe-area-inset-bottom, 0px);
+			--safe-l: env(safe-area-inset-left, 0px);
+			--safe-r: env(safe-area-inset-right, 0px);
+		}
+
+		* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+		html, body {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			width: 100%;
+			height: 100%;
+			background: var(--bg);
+			color: var(--ink);
+			overflow: hidden;
+			overscroll-behavior: none;
+			touch-action: none;
+			-webkit-user-select: none;
+			user-select: none;
+			-webkit-text-size-adjust: 100%;
+			font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+		}
+
+		#canvas {
+			display: block;
+			width: 100%;
+			height: 100%;
+			outline: none;
+			touch-action: none;
+		}
+
+		/* ---------- Lớp phủ khởi động (splash) ---------- */
+		#boot {
+			position: fixed;
+			inset: 0;
+			z-index: 10;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 14px;
+			padding: calc(20px + var(--safe-t)) calc(20px + var(--safe-r)) calc(20px + var(--safe-b)) calc(20px + var(--safe-l));
+			background:
+				radial-gradient(120% 90% at 50% 0%, #12203a 0%, #0a0a0b 62%),
+				var(--bg);
+			text-align: center;
+			transition: opacity .28s ease;
+		}
+
+		#boot.is-hidden { opacity: 0; pointer-events: none; }
+
+		.boot-logo {
+			width: min(46vw, 210px);
+			max-height: 26vh;
+			object-fit: contain;
+			image-rendering: pixelated;
+			filter: drop-shadow(0 0 26px rgba(47, 212, 255, .28));
+		}
+
+		.boot-title {
+			margin: 0;
+			font-size: clamp(19px, 5.4vw, 30px);
+			letter-spacing: .14em;
+			color: var(--gold);
+			text-shadow: 0 2px 0 rgba(0, 0, 0, .6);
+		}
+
+		.boot-sub {
+			margin: 0;
+			font-size: clamp(11px, 2.9vw, 14px);
+			color: var(--muted);
+			letter-spacing: .06em;
+		}
+
+		/* Nút chơi: to, dễ chạm bằng ngón tay (tối thiểu 56px cao) */
+		#play {
+			margin-top: 6px;
+			min-width: min(78vw, 340px);
+			min-height: 58px;
+			padding: 14px 26px;
+			border: 2px solid var(--accent);
+			border-radius: 14px;
+			background: linear-gradient(180deg, rgba(47, 212, 255, .22), rgba(47, 212, 255, .07));
+			color: var(--ink);
+			font-size: clamp(15px, 4.2vw, 19px);
+			font-weight: 700;
+			letter-spacing: .1em;
+			cursor: pointer;
+			box-shadow: 0 0 0 0 rgba(47, 212, 255, .35), 0 10px 30px rgba(0, 0, 0, .45);
+			animation: pulse 2.1s ease-out infinite;
+		}
+
+		#play:disabled { opacity: .55; animation: none; cursor: default; }
+
+		@keyframes pulse {
+			0%   { box-shadow: 0 0 0 0 rgba(47, 212, 255, .38), 0 10px 30px rgba(0, 0, 0, .45); }
+			70%  { box-shadow: 0 0 0 16px rgba(47, 212, 255, 0), 0 10px 30px rgba(0, 0, 0, .45); }
+			100% { box-shadow: 0 0 0 0 rgba(47, 212, 255, 0), 0 10px 30px rgba(0, 0, 0, .45); }
+		}
+
+		.boot-links { display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: center; }
+
+		.boot-link {
+			background: none;
+			border: 0;
+			padding: 10px 6px;
+			color: var(--muted);
+			font-size: clamp(12px, 3.2vw, 14px);
+			text-decoration: underline;
+			text-underline-offset: 3px;
+			cursor: pointer;
+		}
+
+		.boot-link:hover { color: var(--ink); }
+
+		/* Tiến trình tải */
+		#load-box { width: min(80vw, 360px); display: none; flex-direction: column; gap: 7px; align-items: center; }
+		#load-box.is-on { display: flex; }
+
+		#bar {
+			width: 100%;
+			height: 8px;
+			border: 1px solid rgba(47, 212, 255, .4);
+			border-radius: 6px;
+			background: #111a2e;
+			overflow: hidden;
+		}
+
+		#bar-fill {
+			height: 100%;
+			width: 0%;
+			background: linear-gradient(90deg, var(--accent), #7ef0ff);
+			transition: width .2s ease;
+		}
+
+		#load-text { font-size: clamp(11px, 3vw, 13px); color: var(--muted); letter-spacing: .04em; }
+
+		.boot-hint { font-size: clamp(10px, 2.8vw, 12px); color: #6d7fa3; max-width: 34em; line-height: 1.5; }
+
+		/* ---------- Cảnh báo xoay ngang (game là màn hình ngang) ---------- */
+		#rotate {
+			position: fixed;
+			inset: 0;
+			z-index: 30;
+			display: none;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 16px;
+			background: rgba(8, 10, 18, .97);
+			text-align: center;
+			padding: 24px;
+		}
+
+		#rotate.is-on { display: flex; }
+
+		#rotate .phone {
+			width: 62px;
+			height: 104px;
+			border: 3px solid var(--accent);
+			border-radius: 12px;
+			animation: tilt 1.8s ease-in-out infinite;
+		}
+
+		@keyframes tilt {
+			0%, 40%   { transform: rotate(0deg); }
+			60%, 100% { transform: rotate(-90deg); }
+		}
+
+		#rotate p { margin: 0; font-size: clamp(14px, 4vw, 17px); color: var(--ink); }
+		#rotate small { color: var(--muted); font-size: clamp(11px, 3vw, 13px); }
+
+		/* ---------- Thông báo lỗi ---------- */
+		#notice {
+			position: fixed;
+			inset: auto 0 0 0;
+			z-index: 40;
+			display: none;
+			margin: 0 12px calc(12px + var(--safe-b));
+			padding: 14px 16px;
+			border: 1px solid rgba(255, 95, 109, .55);
+			border-radius: 12px;
+			background: #2a1218;
+			color: #ffd7db;
+			font-size: clamp(11px, 3vw, 13px);
+			line-height: 1.5;
+			white-space: pre-wrap;
+			word-break: break-word;
+		}
+
+		#notice.is-on { display: block; }
+
+		/* Toast nhắc chạm để bật âm thanh */
+		#toast {
+			position: fixed;
+			left: 50%;
+			bottom: calc(18px + var(--safe-b));
+			transform: translateX(-50%);
+			z-index: 35;
+			display: none;
+			padding: 10px 16px;
+			border-radius: 999px;
+			background: rgba(12, 18, 32, .92);
+			border: 1px solid rgba(47, 212, 255, .35);
+			color: var(--ink);
+			font-size: clamp(11px, 3vw, 13px);
+			white-space: nowrap;
+		}
+
+		#toast.is-on { display: block; }
+
+		/* Máy tính: thu gọn bố cục cho gọn màn hình rộng */
+		@media (min-width: 820px) {
+			.boot-logo { width: min(22vw, 240px); max-height: 30vh; }
+			.boot-hint { max-width: 40em; }
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas">
+		Trình duyệt của bạn không hỗ trợ thẻ canvas.
+	</canvas>
+
+	<noscript>
+		Trình duyệt của bạn không hỗ trợ JavaScript. Hãy bật JavaScript để chơi.
+	</noscript>
+
+	<div id="boot">
+		<img class="boot-logo" id="boot-logo" alt="">
+		<h1 class="boot-title">PIXEL HORDE</h1>
+		<p class="boot-sub" id="boot-sub">SINH TỒN VÔ TẬN • MUNO STUDIO</p>
+
+		<div id="load-box">
+			<div id="bar"><div id="bar-fill"></div></div>
+			<div id="load-text">Đang tải…</div>
+		</div>
+
+		<button id="play" type="button">▶ CHƠI NGAY</button>
+
+		<div class="boot-links">
+			<button class="boot-link" id="to-menu" type="button">Vào menu chính</button>
+			<button class="boot-link" id="lang-swap" type="button">English</button>
+		</div>
+
+		<p class="boot-hint" id="boot-hint">Chơi trực tiếp trên trình duyệt, không cần tải hay cài đặt. Trên điện thoại hãy xoay ngang màn hình.</p>
+	</div>
+
+	<div id="rotate">
+		<div class="phone" aria-hidden="true"></div>
+		<p>Xoay ngang điện thoại để chơi</p>
+		<small>Trò chơi thiết kế cho màn hình ngang</small>
+	</div>
+
+	<div id="notice"></div>
+	<div id="toast"></div>
+
+	<script src="index.js"></script>
+	<script>
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":674964,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_THREADS_ENABLED = false;
+
+(function () {
+	'use strict';
+
+	// Được gán ở mục 6 sau khi đã chắc chắn engine nạp thành công.
+	let engine = null;
+
+	// ------------------------------------------------------------------
+	// 0. Tên file gốc + logo.
+	//    Godot thay index.js bằng tên file JS kèm đuôi (vd "index.js"), nên
+	//    bỏ đuôi .js để suy ra tên các file cùng bộ (index.icon.png...).
+	// ------------------------------------------------------------------
+	const ENGINE_URL = 'index.js';
+	const ASSET_BASE = ENGINE_URL.replace(/\.js$/, '');
+
+	(function setLogo() {
+		const logo = document.getElementById('boot-logo');
+		if (!logo) return;
+		logo.addEventListener('error', function () { logo.style.display = 'none'; });
+		logo.src = ASSET_BASE + '.icon.png';
+	}());
+
+	// ------------------------------------------------------------------
+	// 1. Song ngữ cho lớp khởi động (theo lựa chọn trên trang chủ -> URL -> hệ thống)
+	// ------------------------------------------------------------------
+	const STRINGS = {
+		vi: {
+			title: 'PIXEL HORDE',
+			sub: 'SINH TỒN VÔ TẬN • MUNO STUDIO',
+			play: '▶ CHƠI NGAY',
+			playLoading: 'ĐANG TẢI',
+			loading: 'Đang tải…',
+			ready: 'Sẵn sàng — chạm để chơi',
+			menu: 'Vào menu chính',
+			swap: 'English',
+			hint: 'Chơi trực tiếp trên trình duyệt, không cần tải hay cài đặt. Trên điện thoại hãy xoay ngang màn hình.',
+			rotate: 'Xoay ngang điện thoại để chơi',
+			rotateSub: 'Trò chơi thiết kế cho màn hình ngang',
+			tapAudio: '🔊 Chạm vào màn hình để bật âm thanh',
+			retry: 'Thử lại',
+			failed: 'Không tải được trò chơi',
+		},
+		en: {
+			title: 'PIXEL HORDE',
+			sub: 'ENDLESS SURVIVAL • MUNO STUDIO',
+			play: '▶ PLAY NOW',
+			playLoading: 'LOADING',
+			loading: 'Loading…',
+			ready: 'Ready — tap to play',
+			menu: 'Main menu',
+			swap: 'Tiếng Việt',
+			hint: 'Play right in your browser — nothing to download or install. On phones, rotate to landscape.',
+			rotate: 'Rotate your phone to play',
+			rotateSub: 'This game is designed for landscape screens',
+			tapAudio: '🔊 Tap the screen to enable sound',
+			retry: 'Retry',
+			failed: 'Could not load the game',
+		},
+	};
+
+	const params = new URLSearchParams(window.location.search);
+	let lang = 'vi';
+	try {
+		const saved = window.localStorage.getItem('phs_lang');
+		if (saved === 'vi' || saved === 'en') lang = saved;
+	} catch (err) { /* chế độ riêng tư: bỏ qua */ }
+	const urlLang = (params.get('lang') || '').toLowerCase();
+	if (urlLang === 'vi' || urlLang === 'en') lang = urlLang;
+	if (!params.has('lang') && !window.localStorage) {
+		lang = ((navigator.language || 'vi').toLowerCase().indexOf('vi') === 0) ? 'vi' : 'en';
+	}
+
+	// Chơi ngay (vào thẳng trận) mặc định bật trên thiết bị cảm ứng, tắt trên máy tính.
+	const isTouch = (navigator.maxTouchPoints || 0) > 0 ||
+		(window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+	let autostart = params.has('autostart')
+		? params.get('autostart') !== '0'
+		: isTouch;
+
+	const boot = document.getElementById('boot');
+	const bootSub = document.getElementById('boot-sub');
+	const bootHint = document.getElementById('boot-hint');
+	const playBtn = document.getElementById('play');
+	const toMenuBtn = document.getElementById('to-menu');
+	const langBtn = document.getElementById('lang-swap');
+	const loadBox = document.getElementById('load-box');
+	const barFill = document.getElementById('bar-fill');
+	const loadText = document.getElementById('load-text');
+	const rotate = document.getElementById('rotate');
+	const notice = document.getElementById('notice');
+	const toast = document.getElementById('toast');
+
+	function t(key) { return (STRINGS[lang] || STRINGS.vi)[key]; }
+
+	function applyLang() {
+		document.documentElement.lang = lang;
+		bootSub.textContent = t('sub');
+		bootHint.textContent = t('hint');
+		toMenuBtn.textContent = t('menu');
+		langBtn.textContent = t('swap');
+		rotate.querySelector('p').textContent = t('rotate');
+		rotate.querySelector('small').textContent = t('rotateSub');
+		if (state === 'idle' || state === 'ready') {
+			playBtn.textContent = t('play');
+		}
+	}
+
+	langBtn.addEventListener('click', function () {
+		lang = (lang === 'vi') ? 'en' : 'vi';
+		try { window.localStorage.setItem('phs_lang', lang); } catch (err) { /* bỏ qua */ }
+		applyLang();
+	});
+
+	// ------------------------------------------------------------------
+	// 2. Trạng thái: idle -> warming -> ready -> running
+	//    - warming: tải trước wasm+pck để lúc chạm là vào ngay (và còn cử chỉ
+	//      người dùng tươi để mở khoá âm thanh).
+	// ------------------------------------------------------------------
+	let state = 'idle';
+	let startRequested = false;
+	let booted = false;
+
+	function showNotice(text) {
+		notice.textContent = text;
+		notice.classList.add('is-on');
+	}
+
+	function setProgress(loaded, total) {
+		const pct = total > 0 ? Math.min(100, Math.round(loaded * 100 / total)) : 0;
+		barFill.style.width = pct + '%';
+		const mb = (loaded / 1048576).toFixed(1);
+		const mbTotal = total > 0 ? (total / 1048576).toFixed(1) : '?';
+		loadText.textContent = t('loading') + ' ' + mb + ' / ' + mbTotal + ' MB (' + pct + '%)';
+		playBtn.textContent = t('playLoading') + ' ' + pct + '%';
+	}
+
+	function enterFullscreen() {
+		const el = document.documentElement;
+		const req = el.requestFullscreen || el.webkitRequestFullscreen;
+		if (req) {
+			try {
+				const p = req.call(el);
+				if (p && p.then) p.then(lockLandscape).catch(function () {});
+				else lockLandscape();
+			} catch (err) { /* iOS Safari không hỗ trợ: bỏ qua */ }
+		}
+	}
+
+	function lockLandscape() {
+		try {
+			if (screen.orientation && screen.orientation.lock) {
+				const p = screen.orientation.lock('landscape');
+				if (p && p.catch) p.catch(function () {});
+			}
+		} catch (err) { /* bỏ qua */ }
+	}
+
+	function showToast(text, ms) {
+		toast.textContent = text;
+		toast.classList.add('is-on');
+		window.setTimeout(function () { toast.classList.remove('is-on'); }, ms || 3200);
+	}
+
+	function hideBoot() {
+		boot.classList.add('is-hidden');
+		window.setTimeout(function () {
+			if (boot.parentNode) boot.parentNode.removeChild(boot);
+		}, 320);
+	}
+
+	// freshGesture: true khi người chơi vừa chạm nút ngay lúc này (trình duyệt cho
+	// phép mở khoá âm thanh). false khi game tự vào sau khi tải xong — khi đó cử
+	// chỉ đã cũ, có thể bị chặn tiếng nên cần nhắc chạm thêm một lần.
+	function beginGame(freshGesture) {
+		if (booted) return;
+		booted = true;
+		state = 'running';
+		window.godotAutostart = autostart;
+		engine.startGame({
+			'onProgress': function (current, total) {
+				if (current > 0 && total > 0) setProgress(current, total);
+			},
+		}).then(function () {
+			hideBoot();
+			if (!freshGesture) {
+				window.setTimeout(function () { showToast(t('tapAudio'), 4200); }, 1500);
+			}
+		}, function (err) {
+			console.error(err);
+			state = 'ready';
+			booted = false;
+			showNotice(t('failed') + '\n' + (err && err.message ? err.message : String(err)) +
+				'\n\n' + t('retry'));
+			playBtn.disabled = false;
+			playBtn.textContent = t('play');
+		});
+	}
+
+	// Chạm nút chơi
+	playBtn.addEventListener('click', function () {
+		if (state === 'ready' || state === 'idle') {
+			enterFullscreen();
+			beginGame(true);
+		} else {
+			// Đang tải: đánh dấu để tự vào game ngay khi tải xong.
+			startRequested = true;
+			playBtn.textContent = t('playLoading') + '…';
+		}
+	});
+
+	toMenuBtn.addEventListener('click', function () {
+		autostart = false;
+		if (state === 'ready' || state === 'idle') {
+			enterFullscreen();
+			beginGame(true);
+		} else {
+			startRequested = true;
+			toMenuBtn.textContent = t('playLoading') + '…';
+		}
+	});
+
+	// Phím cho máy tính: Enter/Space để chơi
+	window.addEventListener('keydown', function (ev) {
+		if (booted) return;
+		if (ev.key === 'Enter' || ev.key === ' ' || ev.code === 'Space') {
+			ev.preventDefault();
+			playBtn.click();
+		}
+	});
+
+	// ------------------------------------------------------------------
+	// 3. Tải trước (warm-up) để "chạm là vào ngay"
+	// ------------------------------------------------------------------
+	function warmUp() {
+		// Tôn trọng chế độ tiết kiệm dữ liệu: không tải trước, để engine tự tải khi chạm.
+		const conn = navigator.connection;
+		if (conn && (conn.saveData || /(^|-)2g$/.test(conn.effectiveType || ''))) {
+			state = 'ready';
+			playBtn.textContent = t('play');
+			return Promise.resolve();
+		}
+
+		state = 'warming';
+		loadBox.classList.add('is-on');
+		playBtn.textContent = t('playLoading') + ' 0%';
+
+		const exe = GODOT_CONFIG.executable;
+		const pack = GODOT_CONFIG.mainPack || (exe + '.pck');
+		const sizes = GODOT_CONFIG.fileSizes || {};
+		const list = [
+			{ url: exe + '.wasm', size: sizes[exe + '.wasm'] || 0 },
+			{ url: pack, size: sizes[pack] || 0 },
+		];
+		const total = list.reduce(function (a, f) { return a + f.size; }, 0);
+		let done = 0;
+
+		function warm(file) {
+			// force-cache: lần đầu tải qua mạng, các lần sau lấy từ cache trình duyệt.
+			return fetch(file.url, { cache: 'force-cache' }).then(function (res) {
+				if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + file.url);
+				const len = file.size || Number(res.headers.get('content-length') || 0);
+				if (!res.body || !res.body.getReader) {
+					return res.arrayBuffer().then(function (buf) {
+						done += buf.byteLength;
+						setProgress(done, total);
+					});
+				}
+				const reader = res.body.getReader();
+				function pump() {
+					return reader.read().then(function (r) {
+						if (r.done) return;
+						done += r.value.byteLength;
+						setProgress(done, total);
+						return pump();
+					});
+				}
+				return pump();
+			});
+		}
+
+		let chain = Promise.resolve();
+		list.forEach(function (f) { chain = chain.then(function () { return warm(f); }); });
+		return chain.then(function () {
+			state = 'ready';
+			setProgress(total, total);
+			loadText.textContent = t('ready');
+			playBtn.textContent = t('play');
+			if (startRequested) beginGame(false);
+		}).catch(function (err) {
+			// Tải trước lỗi (offline, chặn mạng...): để engine tự tải khi chạm.
+			console.warn('Warm-up thất bại, sẽ tải khi chạm:', err);
+			state = 'ready';
+			loadBox.classList.remove('is-on');
+			playBtn.textContent = t('play');
+			if (startRequested) beginGame(false);
+		});
+	}
+
+	// ------------------------------------------------------------------
+	// 4. Chặn thao tác không mong muốn khi chơi trên mobile
+	// ------------------------------------------------------------------
+	window.addEventListener('contextmenu', function (ev) {
+		if (booted) ev.preventDefault();
+	});
+	document.addEventListener('gesturestart', function (ev) { ev.preventDefault(); });
+	document.addEventListener('dblclick', function (ev) { ev.preventDefault(); });
+	// Chặn kéo-nảy trang (pull to refresh) khi đã vào game.
+	document.addEventListener('touchmove', function (ev) {
+		if (booted && ev.touches.length === 1) ev.preventDefault();
+	}, { passive: false });
+
+	// ------------------------------------------------------------------
+	// 5. Nhắc xoay ngang khi ở chế độ dọc
+	// ------------------------------------------------------------------
+	function checkOrientation() {
+		const portrait = window.innerHeight > window.innerWidth;
+		rotate.classList.toggle('is-on', portrait && isTouch);
+	}
+	window.addEventListener('resize', checkOrientation);
+	window.addEventListener('orientationchange', function () {
+		window.setTimeout(checkOrientation, 120);
+	});
+
+	// ------------------------------------------------------------------
+	// 6. Kiểm tra tính năng trình duyệt rồi bắt đầu
+	// ------------------------------------------------------------------
+	applyLang();
+	checkOrientation();
+
+	if (typeof Engine === 'undefined') {
+		// Thiếu file JS của engine: sai đường dẫn export hoặc upload thiếu file.
+		showNotice('Không nạp được engine (' + ENGINE_URL + ').\nHãy tải lại trang; nếu vẫn lỗi, báo cho nhà phát triển.');
+		playBtn.disabled = true;
+		return;
+	}
+
+	engine = new Engine(GODOT_CONFIG);
+	const missing = Engine.getMissingFeatures({ threads: GODOT_THREADS_ENABLED });
+	if (missing.length !== 0) {
+		showNotice('Không chạy được trò chơi.\nTrình duyệt thiếu: ' + missing.join(', ') +
+			'\n\nHãy dùng Chrome, Edge, Firefox hoặc Safari phiên bản mới.');
+		playBtn.disabled = true;
+	} else {
+		warmUp();
+	}
+}());
+	</script>
+</body>
+</html>
+

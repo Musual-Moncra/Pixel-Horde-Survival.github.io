@@ -172,6 +172,37 @@ h1 {
 .link { font-size: 14px; color: var(--muted); transition: color 0.25s ease, padding-left 0.25s var(--ease); }
 .link:hover { color: var(--accent); padding-left: 3px; }
 
+/* ---------- Nút "Chơi ngay": ưu tiên số một, đủ to để chạm trên điện thoại ---------- */
+
+.btn-play {
+  padding: 15px 30px;
+  font-size: 16px;
+  background: var(--accent);
+  color: #04121a;
+  animation: playPulse 2.4s ease-out infinite;
+}
+.btn-play:hover { background: #96e6ff; box-shadow: 0 12px 34px -12px rgba(111, 214, 255, 0.75); }
+@keyframes playPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(111, 214, 255, 0.42); }
+  70%  { box-shadow: 0 0 0 16px rgba(111, 214, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(111, 214, 255, 0); }
+}
+
+/* Nút phụ (tải Windows): viền mảnh, không tranh sự chú ý với nút chơi. */
+.btn-ghost {
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
+.btn-ghost::after { display: none; }
+.btn-ghost:hover {
+  background: transparent;
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: none;
+}
+
 .dot {
   width: 6px; height: 6px; border-radius: 50%; background: #ffd23f;
   box-shadow: 0 0 0 0 rgba(255, 210, 63, 0.6);
@@ -322,6 +353,13 @@ details[open] > *:not(summary) { animation: fadeUp 0.4s var(--ease) both; }
   .shots { grid-template-columns: minmax(0, 1fr); }
   .keys dt { width: 96px; }
   .glow { display: none; }
+}
+
+/* Trên điện thoại: nút "Chơi ngay" chiếm trọn chiều ngang, dễ chạm bằng ngón cái. */
+@media (max-width: 640px) {
+  .actions { gap: 12px; }
+  .btn-play { width: 100%; padding: 16px 20px; font-size: 17px; text-align: center; }
+  .btn-ghost { width: 100%; text-align: center; }
 }
 
 /* Không có JS (hoặc JS lỗi): hiện đủ nội dung, tắt lớp hiệu ứng. */

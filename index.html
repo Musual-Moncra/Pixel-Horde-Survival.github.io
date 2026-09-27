@@ -28,6 +28,7 @@
       <span>Pixel Horde Survival</span>
     </a>
     <nav class="nav">
+      <a href="#play" data-i18n="nav_play">Chơi ngay</a>
       <a href="#features" data-i18n="nav_features">Tính năng</a>
       <a href="#screens" data-i18n="nav_screens">Hình ảnh</a>
       <a href="#download" data-i18n="nav_download">Tải game</a>
@@ -47,15 +48,39 @@
       Lên cấp, chọn kỹ năng, thu thập trang bị và chạy đua cùng kỷ lục của chính mình.
     </p>
     <p class="actions" data-reveal>
-      <a id="download-btn" class="btn" href="https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/latest/download/PixelHordeSurvival-windows-x86_64.zip" data-i18n="cta_download">Tải cho Windows</a>
-      <a class="link" href="#features" data-i18n="cta_features">Xem tính năng</a>
+      <a id="play-btn" class="btn btn-play" href="play/?autostart=1" data-i18n="cta_play">▶ Chơi ngay</a>
+      <a id="download-btn" class="btn btn-ghost" href="https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/latest/download/PixelHordeSurvival-windows-x86_64.zip" data-i18n="cta_download">Tải cho Windows</a>
     </p>
     <p class="meta" data-reveal>
       <span class="dot" aria-hidden="true"></span>
       <span>v<span id="version-badge">0.0.0</span></span>
       <span id="release-date">—</span>
-      <span data-i18n="hero_meta_os">Windows 10/11 · 64-bit · Không cần cài đặt</span>
+      <span data-i18n="hero_meta_os">Chơi trên trình duyệt hoặc Windows 10/11 · Miễn phí</span>
     </p>
+  </section>
+
+  <section id="play" class="section wrap">
+    <h2 data-reveal data-i18n="play_title">Chơi ngay trên trình duyệt</h2>
+    <p class="section-lede" data-reveal data-i18n="play_lede">Bấm là vào trận. Không cần tải, không cần cài đặt — chơi được cả trên máy tính lẫn điện thoại.</p>
+    <p class="actions" data-reveal>
+      <a class="btn btn-play" href="play/?autostart=1" data-i18n="cta_play">▶ Chơi ngay</a>
+      <a class="link" href="play/" data-i18n="play_menu_link">Vào menu chính</a>
+    </p>
+    <dl class="facts">
+      <div data-reveal>
+        <dt data-i18n="play_f1_title">Không cần tải</dt>
+        <dd data-i18n="play_f1_body">Chạy thẳng trong trình duyệt: Chrome, Edge, Firefox hoặc Safari. Lần đầu chờ tải một lát, các lần sau mở là vào ngay.</dd>
+      </div>
+      <div data-reveal>
+        <dt data-i18n="play_f2_title">Chơi trên điện thoại</dt>
+        <dd data-i18n="play_f2_body">Joystick ảo và nút cảm ứng tự hiện. Xoay ngang máy để có màn hình rộng nhất.</dd>
+      </div>
+      <div data-reveal>
+        <dt data-i18n="play_f3_title">Tiến trình được giữ</dt>
+        <dd data-i18n="play_f3_body">Kỷ lục, vàng và trang bị lưu ngay trong trình duyệt — mở lại vẫn còn.</dd>
+      </div>
+    </dl>
+    <p class="meta" data-reveal data-i18n="play_tip">Mẹo trên điện thoại: thêm trang này vào màn hình chính để mở như một ứng dụng.</p>
   </section>
 
   <section id="features" class="section wrap">
@@ -111,7 +136,8 @@
   </section>
 
   <section id="download" class="section wrap">
-    <h2 data-reveal data-i18n="download_title">Tải game</h2>
+    <h2 data-reveal data-i18n="download_title">Tải bản Windows</h2>
+    <p class="section-lede" data-reveal data-i18n="download_lede">Không muốn tải? <a class="link" href="#play">Chơi ngay trên trình duyệt</a>.</p>
     <div class="download" data-reveal>
       <div>
         <strong>Windows 10 / 11 (64-bit)</strong>

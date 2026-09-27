@@ -35,7 +35,26 @@ zip -r ../release/PixelHordeSurvival-windows-x86_64.zip . -x "*.pdb"
 
 File zip chứa `Pixel Horde Survival.exe` ở ngay gốc (không lồng thêm thư mục).
 
-## 4. Cập nhật version.json + changelog
+## 4. Export + phát hành bản chơi trên trình duyệt (nút "Chơi ngay")
+
+Nút "▶ Chơi ngay" trên trang chủ trỏ tới `/play/`. Mỗi bản phát hành nên cập nhật
+thư mục này để người chơi (nhất là trên điện thoại) vào chơi ngay, không cần tải.
+
+```bash
+cd /Users/musual/GameVoHan
+./tools/build_web.sh                 # export bản web vào builds/web/
+./tools/publish_web_to_site.sh       # đồng bộ sang <trang chủ>/play/
+```
+
+Sau đó commit thư mục `play/` cùng với bước 7.
+
+- `index.wasm` (~38 MB) là engine, gần như không đổi giữa các bản nên git chỉ lưu một lần;
+  mỗi bản chỉ thêm ~700 KB (`index.pck`).
+- Bản web là single-threaded nên chạy được trên GitHub Pages, **không cần** header COOP/COEP.
+- Kiểm tra nhanh luồng chơi ngay (cần Chrome + Node 22):
+  `cd /Users/musual/GameVoHan && node tools/web_smoke_test.mjs "http://localhost:8080/play/?autostart=1"`
+
+## 5. Cập nhật version.json + changelog
 
 ```bash
 cd /Users/musual/Pixel-Horde-Survival.github.io
@@ -48,7 +67,7 @@ python3 scripts/prepare_release.py \
 
 Script sẽ tự: băm SHA-256, ghi dung lượng, cập nhật link tải, thêm mục changelog và sinh `RELEASE_NOTES.md`.
 
-## 5. Tạo GitHub Release + tải file lên
+## 6. Tạo GitHub Release + tải file lên
 
 Cách A — dùng token (tự động):
 
@@ -61,11 +80,11 @@ Cách B — thủ công: vào
 <https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/new>,
 tag `v0.1.1`, dán nội dung `RELEASE_NOTES.md`, kéo thả file zip vào mục *Attach binaries*.
 
-## 6. Đẩy trang web lên
+## 7. Đẩy trang web lên
 
 ```bash
 cd /Users/musual/Pixel-Horde-Survival.github.io
-git add -A
+git add -A          # gồm cả play/ (bản chơi trên trình duyệt)
 git commit -m "Release v0.1.1"
 git push
 ```
