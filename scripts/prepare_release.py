@@ -86,7 +86,10 @@ def main() -> int:
             % (game_version, version)
         )
 
-    url = "%s/releases/download/v%s/%s" % (REPO_URL, version, args.asset_name)
+    # Link "latest/download" luôn trỏ tới file của bản phát hành mới nhất và trả về
+    # content-disposition: attachment nên bấm là tải ngay, không phải mở trang GitHub.
+    url = "%s/releases/latest/download/%s" % (REPO_URL, args.asset_name)
+    versioned_url = "%s/releases/download/v%s/%s" % (REPO_URL, version, args.asset_name)
     size = ""
     digest = ""
     if args.zip_path:
@@ -104,6 +107,8 @@ def main() -> int:
     windows = data.setdefault("download", {}).setdefault("windows", {})
     windows["label"] = windows.get("label") or "Windows 10 / 11 (64-bit)"
     windows["url"] = url
+    windows["versioned_url"] = versioned_url
+    windows["release_page"] = "%s/releases/latest" % REPO_URL
     windows["file_name"] = args.asset_name
     windows["size"] = size
     windows["sha256"] = digest

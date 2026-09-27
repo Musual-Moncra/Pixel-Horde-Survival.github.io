@@ -124,6 +124,7 @@ h2 {
   border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
   padding: 24px 0; margin: 24px 0 8px;
 }
+.download-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
 .download strong { font-size: 16px; font-weight: 600; }
 .download p { margin: 6px 0 0; }
 .download .meta { word-break: break-all; max-width: 62ch; }

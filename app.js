@@ -19,6 +19,8 @@
       hero_lede: "Một mạng duy nhất, quái mạnh dần theo từng phút và cứ năm phút một thủ lĩnh giáng lâm. Lên cấp, chọn kỹ năng, thu thập trang bị và chạy đua cùng kỷ lục của chính mình.",
       cta_download: "Tải cho Windows",
       cta_features: "Xem tính năng",
+      download_hint: "Bấm là tải ngay, không cần mở trang GitHub.",
+      release_link: "Trang phát hành",
       hero_meta_os: "Windows 10/11 · 64-bit · Không cần cài đặt",
       features_title: "Cơ chế cốt lõi",
       features_lede: "Mọi thứ cần có ở một game sinh tồn vô tận.",
@@ -83,6 +85,8 @@
       hero_lede: "One life, enemies that scale every minute, and a boss every five minutes. Level up, pick skills, collect gear and chase your own record.",
       cta_download: "Download for Windows",
       cta_features: "See features",
+      download_hint: "Starts downloading right away — no GitHub page needed.",
+      release_link: "Release page",
       hero_meta_os: "Windows 10/11 · 64-bit · No installer needed",
       features_title: "Core mechanics",
       features_lede: "Everything an endless survival game needs.",
@@ -207,6 +211,7 @@
 
     var win = (data.download && data.download.windows) || null;
     var url = (win && win.url) ? win.url : RELEASES_LATEST;
+    var releasePage = (win && win.release_page) ? win.release_page : RELEASES_LATEST;
     var fileName = (win && win.file_name) ? win.file_name : "";
     var size = (win && win.size) ? win.size : "";
     var sha = (win && win.sha256) ? win.sha256 : "";
@@ -215,6 +220,8 @@
     var topBtn = document.getElementById("download-btn");
     if (link) link.href = url;
     if (topBtn) topBtn.href = url;
+    var releaseLink = document.getElementById("release-link");
+    if (releaseLink) releaseLink.href = releasePage;
 
     var fileEl = document.getElementById("download-file");
     if (fileEl) fileEl.textContent = fileName || "GitHub Releases";
