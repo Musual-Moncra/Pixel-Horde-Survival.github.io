@@ -1,14 +1,14 @@
 {
   "version": "0.1.1",
   "release_date": "2026-09-27",
-  "notes": "Bản cập nhật lớn: hình ảnh nhân vật/quái/thủ lĩnh mới, giao diện đồng bộ, cân bằng lại toàn bộ độ khó và sửa nhiều lỗi.",
+  "notes": "Bản cập nhật 0.1.1: cập nhật hình ảnh, biểu tượng pixel, cân bằng và hiệu năng; sửa lỗi cache web giữ bản cũ.",
   "download": {
     "windows": {
       "label": "Windows 10 / 11 (64-bit)",
       "url": "https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/latest/download/PixelHordeSurvival-windows-x86_64.zip",
       "file_name": "PixelHordeSurvival-windows-x86_64.zip",
-      "size": "36.8 MB",
-      "sha256": "14ed0eabcb849cd1cdf26b2293b5213bb99e368323e1e8d689b3ab5ff8f43214",
+      "size": "37.1 MB",
+      "sha256": "0a8ed39f87ffcb1ba93d7dae5ca847501f95172afd722468fdf7401b645d56f4",
       "release_page": "https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/latest",
       "versioned_url": "https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/download/v0.1.1/PixelHordeSurvival-windows-x86_64.zip"
     }
@@ -18,13 +18,13 @@
       "version": "0.1.1",
       "date": "2026-09-27",
       "items": [
-        "Hình ảnh mới: nhân vật, 11 chủng quái, 5 thủ lĩnh và vũ khí được vẽ lại; thủ lĩnh có phase 2 dưới 35% máu",
-        "Cân bằng lại độ khó: máu quái +35%/5 phút kèm sát thương +8%, Boss trâu hơn, thưởng Boss và trụ hồi máu giảm",
-        "Mana thành ràng buộc thật (hồi 5.5 MP/s, chi phí kỹ năng tăng), giới hạn giảm hồi chiêu 40%",
-        "Sửa lỗi nghiêm trọng: độ khó quái không tăng theo thời gian, Lưỡi Hái gần như không chém trúng, Thiên Thạch thiếu sát thương dung nham",
-        "Hiệu năng: hàng đợi sinh quái, throttle HUD, giới hạn đạn, bỏ rò rỉ bộ nhớ khi thoát",
-        "Menu chính có nền động, theme giao diện dùng chung, hỗ trợ đa ngôn ngữ Việt/Anh",
-        "Bản web tự làm mới bản build sau mỗi lần cập nhật (sửa lỗi trình duyệt giữ bản cũ)"
+        "Hình ảnh mới: rig pixel cho nhân vật, quái, thủ lĩnh và vũ khí; Boss có phase 2",
+        "Thay emoji ở menu, HUD, kỹ năng, Pause và trang bị bằng icon pixel; thêm font fallback để emoji còn lại không thành ô vuông trên web",
+        "Cân bằng lại độ khó: quái tăng máu và sát thương theo tầng, Boss trâu hơn, giảm thưởng vĩnh viễn",
+        "Mana hồi chậm hơn và kỹ năng chủ động tốn MP hơn; giảm trần CDR và né đòn",
+        "Sửa lỗi: HP quái không tăng theo độ khó, Lưỡi Hái có hitbox, Thiên Thạch có sát thương dung nham",
+        "Tối ưu: hàng đợi spawn, giới hạn đạn, HUD throttle, pool và dọn leak",
+        "Bản web revalidate cache để sau khi deploy trình duyệt nhận index.pck mới thay vì giữ mã cũ"
       ]
     },
     {
