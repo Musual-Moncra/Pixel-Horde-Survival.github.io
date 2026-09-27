@@ -1,6 +1,7 @@
 /* Pixel Horde Survival — landing page script
- * - Đọc version.json để hiển thị phiên bản, ngày phát hành, link tải và lịch sử cập nhật.
- * - Chuyển đổi song ngữ VI/EN ngay trên trang (không cần tải lại).
+ * - i18n VI/EN (không tải lại trang).
+ * - Đọc version.json: phiên bản, ngày phát hành, link tải trực tiếp, lịch sử cập nhật.
+ * - Hiệu ứng: hạt pixel trôi, reveal khi cuộn, thanh tiến trình, ánh sáng theo con trỏ.
  */
 (function () {
   "use strict";
@@ -19,7 +20,6 @@
       hero_lede: "Một mạng duy nhất, quái mạnh dần theo từng phút và cứ năm phút một thủ lĩnh giáng lâm. Lên cấp, chọn kỹ năng, thu thập trang bị và chạy đua cùng kỷ lục của chính mình.",
       cta_download: "Tải cho Windows",
       cta_features: "Xem tính năng",
-      download_hint: "Bấm là tải ngay, không cần mở trang GitHub.",
       release_link: "Trang phát hành",
       hero_meta_os: "Windows 10/11 · 64-bit · Không cần cài đặt",
       features_title: "Cơ chế cốt lõi",
@@ -85,7 +85,6 @@
       hero_lede: "One life, enemies that scale every minute, and a boss every five minutes. Level up, pick skills, collect gear and chase your own record.",
       cta_download: "Download for Windows",
       cta_features: "See features",
-      download_hint: "Starts downloading right away — no GitHub page needed.",
       release_link: "Release page",
       hero_meta_os: "Windows 10/11 · 64-bit · No installer needed",
       features_title: "Core mechanics",
@@ -187,7 +186,7 @@
     var html = "";
     for (var i = 0; i < data.changelog.length; i++) {
       var rel = data.changelog[i];
-      html += '<article class="release">';
+      html += '<article class="release" data-reveal>';
       html += '<div class="release-head"><span class="release-version">v' + escapeHtml(rel.version || "?") + "</span>";
       if (rel.date) html += '<span class="release-date">' + escapeHtml(rel.date) + "</span>";
       html += "</div>";
@@ -201,6 +200,7 @@
       html += "</article>";
     }
     host.innerHTML = html;
+    if (window.PHS_FX) window.PHS_FX.scan(host);
   }
 
   function applyVersion(data) {
@@ -252,23 +252,218 @@
     if (note) note.style.display = shown > 0 ? "none" : "";
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
-    var saved = null;
-    try { saved = localStorage.getItem("phs_lang"); } catch (e) { /* ignore */ }
-    var browser = (navigator.language || "vi").toLowerCase().indexOf("vi") === 0 ? "vi" : "en";
-    applyLanguage(saved || browser);
+  /* ==========================================================
+     Hiệu ứng chuyển động
+     ========================================================== */
 
-    var toggle = document.getElementById("lang-toggle");
-    if (toggle) {
-      toggle.addEventListener("click", function () {
-        applyLanguage(currentLang === "vi" ? "en" : "vi");
-      });
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var finePointer = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
+
+  function initProgressBar() {
+    if (reduceMotion) return;
+    var root = document.documentElement;
+    var queued = false;
+    function update() {
+      queued = false;
+      var max = document.body.scrollHeight - window.innerHeight;
+      var ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      root.style.setProperty("--progress", ratio.toFixed(4));
+    }
+    window.addEventListener("scroll", function () {
+      if (!queued) { queued = true; window.requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  }
+
+  function initHeaderState() {
+    var header = document.getElementById("site-header");
+    if (!header) return;
+    function update() {
+      header.classList.toggle("is-scrolled", window.scrollY > 8);
+    }
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+  }
+
+  function initReveal() {
+    var items = document.querySelectorAll("[data-reveal]");
+    if (!("IntersectionObserver" in window) || reduceMotion) {
+      for (var i = 0; i < items.length; i++) items[i].classList.add("is-in");
+      return null;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          entries[i].target.classList.add("is-in");
+          observer.unobserve(entries[i].target);
+        }
+      }
+    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.06 });
+    return observer;
+  }
+
+  function initGlow() {
+    var glow = document.getElementById("glow");
+    if (!glow || reduceMotion || !finePointer) return;
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2;
+    var x = tx, y = ty, running = false;
+    function loop() {
+      x += (tx - x) * 0.08;
+      y += (ty - y) * 0.08;
+      glow.style.transform = "translate3d(" + x.toFixed(1) + "px," + y.toFixed(1) + "px,0)";
+      if (Math.abs(tx - x) + Math.abs(ty - y) > 0.4) {
+        window.requestAnimationFrame(loop);
+      } else {
+        running = false;
+      }
+    }
+    window.addEventListener("pointermove", function (e) {
+      if (e.pointerType !== "mouse") return;
+      tx = e.clientX; ty = e.clientY;
+      glow.classList.add("is-on");
+      if (!running) { running = true; window.requestAnimationFrame(loop); }
+    }, { passive: true });
+    window.addEventListener("pointerleave", function () { glow.classList.remove("is-on"); });
+  }
+
+  function initField() {
+    var canvas = document.getElementById("field");
+    if (!canvas || reduceMotion) return;
+    var ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = 0, h = 0, parts = [];
+    var colors = ["#6fd6ff", "#6fd6ff", "#ffd23f", "#ff6b6b", "#ededed"];
+    var paused = false;
+
+    function make(initial) {
+      var size = 1 + Math.floor(Math.random() * 3);
+      return {
+        x: Math.random() * w,
+        y: initial ? Math.random() * h : h + 6,
+        s: size,
+        vy: 0.12 + Math.random() * 0.4,
+        vx: (Math.random() - 0.5) * 0.14,
+        a: 0.08 + Math.random() * 0.3,
+        spark: Math.random() < 0.18,
+        c: colors[Math.floor(Math.random() * colors.length)],
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.6 + Math.random() * 1.4
+      };
     }
 
-    var yearEl = document.getElementById("year");
-    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    function resize() {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var count = Math.round((w * h) / 19000);
+      count = Math.max(24, Math.min(w < 700 ? 44 : 96, count));
+      parts = [];
+      for (var i = 0; i < count; i++) parts.push(make(true));
+    }
 
-    handleMissingScreenshots();
+    var t0 = 0;
+    function frame(ts) {
+      if (paused) return;
+      if (!t0) t0 = ts;
+      var time = (ts - t0) / 1000;
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < parts.length; i++) {
+        var p = parts[i];
+        p.y -= p.vy;
+        p.x += p.vx;
+        if (p.y < -6 || p.x < -8 || p.x > w + 8) parts[i] = make(false);
+        var twinkle = 0.55 + 0.45 * Math.sin(time * p.speed + p.phase);
+        ctx.globalAlpha = Math.max(0, Math.min(1, p.a * twinkle));
+        ctx.fillStyle = p.c;
+        var px = Math.round(p.x);
+        var py = Math.round(p.y);
+        ctx.fillRect(px, py, p.s, p.s);
+        // Thỉnh thoảng lóe thành hình thánh giá nhỏ cho cảm giác "lấp lánh".
+        if (p.spark && twinkle > 0.82 && p.s > 1) {
+          ctx.fillRect(px - p.s, py, p.s, p.s);
+          ctx.fillRect(px + p.s, py, p.s, p.s);
+          ctx.fillRect(px, py - p.s, p.s, p.s);
+          ctx.fillRect(px, py + p.s, p.s, p.s);
+        }
+      }
+      ctx.globalAlpha = 1;
+      window.requestAnimationFrame(frame);
+    }
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        paused = true;
+      } else if (paused) {
+        paused = false;
+        t0 = 0;
+        window.requestAnimationFrame(frame);
+      }
+    });
+
+    window.addEventListener("resize", resize);
+    resize();
+    window.requestAnimationFrame(frame);
+  }
+
+  /* ==========================================================
+     Khởi động
+     ========================================================== */
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // Ưu tiên số một: đảm bảo nội dung hiện ra kể cả khi phần còn lại gặp lỗi.
+    var observer = initReveal();
+    window.PHS_FX = {
+      scan: function (root) {
+        var scope = root || document;
+        var items = scope.querySelectorAll("[data-reveal]:not(.is-in)");
+        for (var i = 0; i < items.length; i++) {
+          var el = items[i];
+          var parent = el.parentElement;
+          var index = 0;
+          if (parent) {
+            var sibs = parent.children;
+            for (var j = 0; j < sibs.length; j++) {
+              if (sibs[j] === el) break;
+              if (sibs[j].hasAttribute && sibs[j].hasAttribute("data-reveal")) index++;
+            }
+          }
+          el.style.setProperty("--i", String(Math.min(index, 8)));
+          if (observer) observer.observe(el); else el.classList.add("is-in");
+        }
+      }
+    };
+    window.PHS_FX.scan(document);
+
+    try {
+      initProgressBar();
+      initHeaderState();
+      initGlow();
+      initField();
+    } catch (e) { /* hiệu ứng lỗi không được làm hỏng trang */ }
+
+    try {
+      var saved = null;
+      try { saved = localStorage.getItem("phs_lang"); } catch (e2) { /* ignore */ }
+      var browser = (navigator.language || "vi").toLowerCase().indexOf("vi") === 0 ? "vi" : "en";
+      applyLanguage(saved || browser);
+
+      var toggle = document.getElementById("lang-toggle");
+      if (toggle) {
+        toggle.addEventListener("click", function () {
+          applyLanguage(currentLang === "vi" ? "en" : "vi");
+        });
+      }
+
+      var yearEl = document.getElementById("year");
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      handleMissingScreenshots();
+    } catch (e3) { /* ignore */ }
 
     fetch("version.json", { cache: "no-store" })
       .then(function (res) { return res.ok ? res.json() : null; })

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="no-js">
 <head>
 <meta charset="utf-8" />
+<script>document.documentElement.classList.remove("no-js");</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Pixel Horde Survival — Sinh tồn vô tận | Muno Studio</title>
 <meta name="description" content="Pixel Horde Survival là game sinh tồn vô tận: sống sót trước bầy quái, nâng cấp kỹ năng, săn 5 thủ lĩnh và thu thập 72 trang bị. Tải miễn phí cho Windows." />
@@ -16,7 +17,11 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<header class="site-header">
+<div class="progress" id="progress" aria-hidden="true"></div>
+<canvas class="field" id="field" aria-hidden="true"></canvas>
+<div class="glow" id="glow" aria-hidden="true"></div>
+
+<header class="site-header" id="site-header">
   <div class="wrap header-inner">
     <a class="brand" href="#top">
       <img src="assets/logo.svg" alt="" width="24" height="18" />
@@ -35,49 +40,49 @@
 
 <main id="top">
   <section class="hero wrap">
-    <p class="kicker" data-i18n="hero_eyebrow">Sinh tồn vô tận · Roguelite bắn quái</p>
-    <h1 data-i18n="hero_title">Sống sót trước bầy quái. Mạnh lên sau mỗi đợt.</h1>
-    <p class="lede" data-i18n="hero_lede">
+    <p class="kicker" data-reveal data-i18n="hero_eyebrow">Sinh tồn vô tận · Roguelite bắn quái</p>
+    <h1 class="shine" data-reveal data-i18n="hero_title">Sống sót trước bầy quái. Mạnh lên sau mỗi đợt.</h1>
+    <p class="lede" data-reveal data-i18n="hero_lede">
       Một mạng duy nhất, quái mạnh dần theo từng phút và cứ năm phút một thủ lĩnh giáng lâm.
       Lên cấp, chọn kỹ năng, thu thập trang bị và chạy đua cùng kỷ lục của chính mình.
     </p>
-    <p class="actions">
+    <p class="actions" data-reveal>
       <a id="download-btn" class="btn" href="https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/latest/download/PixelHordeSurvival-windows-x86_64.zip" data-i18n="cta_download">Tải cho Windows</a>
       <a class="link" href="#features" data-i18n="cta_features">Xem tính năng</a>
     </p>
-    <p class="meta">
+    <p class="meta" data-reveal>
+      <span class="dot" aria-hidden="true"></span>
       <span>v<span id="version-badge">0.0.0</span></span>
       <span id="release-date">—</span>
       <span data-i18n="hero_meta_os">Windows 10/11 · 64-bit · Không cần cài đặt</span>
     </p>
-    <p class="meta" data-i18n="download_hint">Bấm là tải ngay, không cần mở trang GitHub.</p>
   </section>
 
   <section id="features" class="section wrap">
-    <h2 data-i18n="features_title">Cơ chế cốt lõi</h2>
-    <p class="section-lede" data-i18n="features_lede">Mọi thứ cần có ở một game sinh tồn vô tận.</p>
+    <h2 data-reveal data-i18n="features_title">Cơ chế cốt lõi</h2>
+    <p class="section-lede" data-reveal data-i18n="features_lede">Mọi thứ cần có ở một game sinh tồn vô tận.</p>
     <dl class="facts">
-      <div>
+      <div data-reveal>
         <dt data-i18n="f1_title">Đợt quái vô tận</dt>
         <dd data-i18n="f1_body">Đợt mới mỗi 60 giây, xung kích giữa đợt và các đội hình bao vây, gọng kìm, tập kích bốn góc.</dd>
       </div>
-      <div>
+      <div data-reveal>
         <dt data-i18n="f2_title">11 chủng quái</dt>
         <dd data-i18n="f2_body">Sát thủ dịch chuyển, pháp sư bắn quạt, tử thần triệu hồi, người đá kháng đẩy lùi, nhãn ma bắn laser xuyên phá.</dd>
       </div>
-      <div>
+      <div data-reveal>
         <dt data-i18n="f3_title">5 thủ lĩnh</dt>
         <dd data-i18n="f3_body">Cứ năm phút một thủ lĩnh: Hư Vô, Viêm Ma, Tử Thần, Cự Thần, Huyết Ma. Hạ gục để nhận buff vĩnh viễn.</dd>
       </div>
-      <div>
+      <div data-reveal>
         <dt data-i18n="f4_title">18 kỹ năng</dt>
         <dd data-i18n="f4_body">Sét, hố đen, hào quang, thiên thạch, ngưng đọng thời gian. Nâng theo cấp độ và kích hoạt chủ động bằng phím E.</dd>
       </div>
-      <div>
+      <div data-reveal>
         <dt data-i18n="f5_title">72 trang bị</dt>
         <dd data-i18n="f5_body">Sáu ô trang bị, năm phẩm cấp từ Thường đến Huyền Thoại, nâng cấp, đột phá và quay Gacha bằng vàng.</dd>
       </div>
-      <div>
+      <div data-reveal>
         <dt data-i18n="f6_title">Lưu an toàn</dt>
         <dd data-i18n="f6_body">Tự động lưu mỗi 30 giây, sao lưu dự phòng và chống mở hai cửa sổ game cùng lúc.</dd>
       </div>
@@ -85,29 +90,29 @@
   </section>
 
   <section id="screens" class="section wrap">
-    <h2 data-i18n="screens_title">Hình ảnh trong game</h2>
+    <h2 data-reveal data-i18n="screens_title">Hình ảnh trong game</h2>
     <div class="shots">
-      <figure class="shot"><img src="assets/screenshot-1.png" alt="Giao diện chiến đấu" loading="lazy" /><figcaption data-i18n="shot1">Chiến đấu giữa bầy quái</figcaption></figure>
-      <figure class="shot"><img src="assets/screenshot-2.png" alt="Thủ lĩnh" loading="lazy" /><figcaption data-i18n="shot2">Thủ lĩnh và thanh máu</figcaption></figure>
-      <figure class="shot"><img src="assets/screenshot-3.png" alt="Nâng cấp kỹ năng" loading="lazy" /><figcaption data-i18n="shot3">Chọn nâng cấp khi lên cấp</figcaption></figure>
+      <figure class="shot" data-reveal data-glint><img src="assets/screenshot-1.png" alt="Giao diện chiến đấu" loading="lazy" /><figcaption data-i18n="shot1">Chiến đấu giữa bầy quái</figcaption></figure>
+      <figure class="shot" data-reveal data-glint><img src="assets/screenshot-2.png" alt="Thủ lĩnh" loading="lazy" /><figcaption data-i18n="shot2">Thủ lĩnh và thanh máu</figcaption></figure>
+      <figure class="shot" data-reveal data-glint><img src="assets/screenshot-3.png" alt="Nâng cấp kỹ năng" loading="lazy" /><figcaption data-i18n="shot3">Chọn nâng cấp khi lên cấp</figcaption></figure>
     </div>
-    <p class="meta" id="shots-note" data-i18n="shots_note">Ảnh chụp trong game sẽ được cập nhật kèm bản phát hành tiếp theo.</p>
+    <p class="meta" id="shots-note" data-reveal data-i18n="shots_note">Ảnh chụp trong game sẽ được cập nhật kèm bản phát hành tiếp theo.</p>
 
-    <h3 class="subhead" data-i18n="controls_title">Điều khiển</h3>
+    <h3 class="subhead" data-reveal data-i18n="controls_title">Điều khiển</h3>
     <dl class="keys">
-      <div><dt>WASD</dt><dd data-i18n="c_move">di chuyển</dd></div>
-      <div><dt>Space</dt><dd data-i18n="c_dash">lướt, bất tử trong lúc lướt</dd></div>
-      <div><dt>Chuột trái</dt><dd data-i18n="c_shoot">bắn về hướng ngắm</dd></div>
-      <div><dt>T</dt><dd data-i18n="c_auto">bật/tắt tự động bắn</dd></div>
-      <div><dt>E</dt><dd data-i18n="c_skill">kỹ năng chủ động</dd></div>
-      <div><dt>1–9 / Q</dt><dd data-i18n="c_switch">đổi kỹ năng chủ động</dd></div>
-      <div><dt>P / B / Esc</dt><dd data-i18n="c_pause">tạm dừng, trang bị, thoát menu</dd></div>
+      <div data-reveal><dt>WASD</dt><dd data-i18n="c_move">di chuyển</dd></div>
+      <div data-reveal><dt>Space</dt><dd data-i18n="c_dash">lướt, bất tử trong lúc lướt</dd></div>
+      <div data-reveal><dt>Chuột trái</dt><dd data-i18n="c_shoot">bắn về hướng ngắm</dd></div>
+      <div data-reveal><dt>T</dt><dd data-i18n="c_auto">bật/tắt tự động bắn</dd></div>
+      <div data-reveal><dt>E</dt><dd data-i18n="c_skill">kỹ năng chủ động</dd></div>
+      <div data-reveal><dt>1–9 / Q</dt><dd data-i18n="c_switch">đổi kỹ năng chủ động</dd></div>
+      <div data-reveal><dt>P / B / Esc</dt><dd data-i18n="c_pause">tạm dừng, trang bị, thoát menu</dd></div>
     </dl>
   </section>
 
   <section id="download" class="section wrap">
-    <h2 data-i18n="download_title">Tải game</h2>
-    <div class="download">
+    <h2 data-reveal data-i18n="download_title">Tải game</h2>
+    <div class="download" data-reveal>
       <div>
         <strong>Windows 10 / 11 (64-bit)</strong>
         <p class="meta" id="download-file">PixelHordeSurvival-windows-x86_64.zip</p>
@@ -118,7 +123,7 @@
         <a id="release-link" class="link" href="https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/latest" data-i18n="release_link">Trang phát hành</a>
       </div>
     </div>
-    <details>
+    <details data-reveal>
       <summary data-i18n="install_title">Hướng dẫn cài đặt</summary>
       <ol>
         <li data-i18n="install_1">Tải file .zip ở trên và giải nén ra một thư mục bất kỳ.</li>
@@ -127,7 +132,7 @@
         <li data-i18n="install_4">Dữ liệu lưu tại <code>%APPDATA%\Godot\app_userdata\Pixel Horde Survival</code>.</li>
       </ol>
     </details>
-    <details>
+    <details data-reveal>
       <summary data-i18n="req_title">Cấu hình tối thiểu</summary>
       <ul>
         <li data-i18n="req_1">Windows 10/11 64-bit, CPU 2 nhân 2.0 GHz</li>
@@ -138,18 +143,18 @@
   </section>
 
   <section id="changelog" class="section wrap">
-    <h2 data-i18n="changelog_title">Cập nhật</h2>
+    <h2 data-reveal data-i18n="changelog_title">Cập nhật</h2>
     <div id="changelog-list" class="changelog">
       <p class="meta" data-i18n="loading">Đang tải…</p>
     </div>
   </section>
 
   <section id="faq" class="section wrap">
-    <h2 data-i18n="faq_title">Hỏi đáp</h2>
-    <details><summary data-i18n="faq_q1">Game có mất phí không?</summary><p data-i18n="faq_a1">Không. Bản Windows miễn phí hoàn toàn, không quảng cáo và không có giao dịch trong game.</p></details>
-    <details><summary data-i18n="faq_q2">Có bản cho điện thoại hoặc trình duyệt không?</summary><p data-i18n="faq_a2">Giao diện cảm ứng đã có sẵn trong game; bản Android và bản chơi trên trình duyệt đang được hoàn thiện.</p></details>
-    <details><summary data-i18n="faq_q3">Làm sao biết có bản cập nhật mới?</summary><p data-i18n="faq_a3">Mở game, vào Cài đặt → Kiểm tra cập nhật, hoặc xem mục Cập nhật trên trang này.</p></details>
-    <details><summary data-i18n="faq_q4">Báo lỗi ở đâu?</summary><p><span data-i18n="faq_a4">Gửi báo lỗi kèm ảnh chụp màn hình qua</span> <a href="https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/issues" target="_blank" rel="noopener">GitHub Issues</a>.</p></details>
+    <h2 data-reveal data-i18n="faq_title">Hỏi đáp</h2>
+    <details data-reveal><summary data-i18n="faq_q1">Game có mất phí không?</summary><p data-i18n="faq_a1">Không. Bản Windows miễn phí hoàn toàn, không quảng cáo và không có giao dịch trong game.</p></details>
+    <details data-reveal><summary data-i18n="faq_q2">Có bản cho điện thoại hoặc trình duyệt không?</summary><p data-i18n="faq_a2">Giao diện cảm ứng đã có sẵn trong game; bản Android và bản chơi trên trình duyệt đang được hoàn thiện.</p></details>
+    <details data-reveal><summary data-i18n="faq_q3">Làm sao biết có bản cập nhật mới?</summary><p data-i18n="faq_a3">Mở game, vào Cài đặt → Kiểm tra cập nhật, hoặc xem mục Cập nhật trên trang này.</p></details>
+    <details data-reveal><summary data-i18n="faq_q4">Báo lỗi ở đâu?</summary><p><span data-i18n="faq_a4">Gửi báo lỗi kèm ảnh chụp màn hình qua</span> <a href="https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/issues" target="_blank" rel="noopener">GitHub Issues</a>.</p></details>
   </section>
 </main>
 
