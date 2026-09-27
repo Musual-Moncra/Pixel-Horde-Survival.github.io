@@ -14,26 +14,26 @@
       nav_download: "Tải game",
       nav_changelog: "Cập nhật",
       nav_faq: "Hỏi đáp",
-      hero_eyebrow: "Sinh tồn vô tận • Roguelite bắn quái",
+      hero_eyebrow: "Sinh tồn vô tận · Roguelite bắn quái",
       hero_title: "Sống sót trước bầy quái. Mạnh lên sau mỗi đợt.",
-      hero_lede: "Pixel Horde Survival là game sinh tồn vô tận: bạn chỉ có một mạng, quái mạnh dần theo từng phút, và mỗi 5 phút một thủ lĩnh giáng lâm. Lên cấp, chọn kỹ năng, thu thập trang bị và chạy đua cùng kỷ lục của chính mình.",
-      cta_download: "Tải miễn phí cho Windows",
+      hero_lede: "Một mạng duy nhất, quái mạnh dần theo từng phút và cứ năm phút một thủ lĩnh giáng lâm. Lên cấp, chọn kỹ năng, thu thập trang bị và chạy đua cùng kỷ lục của chính mình.",
+      cta_download: "Tải cho Windows",
       cta_features: "Xem tính năng",
       hero_meta_os: "Windows 10/11 · 64-bit · Không cần cài đặt",
       features_title: "Cơ chế cốt lõi",
-      features_lede: "Mọi thứ bạn cần ở một game sinh tồn vô tận — và một chút nữa.",
-      f1_title: "🌊 Đợt quái vô tận",
-      f1_body: "Đợt mới mỗi 60 giây, xung kích giữa đợt và các đội hình bao vây, gọng kìm, tập kích 4 góc.",
-      f2_title: "👹 11 chủng quái",
+      features_lede: "Mọi thứ cần có ở một game sinh tồn vô tận.",
+      f1_title: "Đợt quái vô tận",
+      f1_body: "Đợt mới mỗi 60 giây, xung kích giữa đợt và các đội hình bao vây, gọng kìm, tập kích bốn góc.",
+      f2_title: "11 chủng quái",
       f2_body: "Sát thủ dịch chuyển, pháp sư bắn quạt, tử thần triệu hồi, người đá kháng đẩy lùi, nhãn ma bắn laser xuyên phá.",
-      f3_title: "👑 5 thủ lĩnh",
-      f3_body: "Cứ 5 phút một thủ lĩnh: Hư Vô, Viêm Ma, Tử Thần, Cự Thần, Huyết Ma. Hạ gục để nhận buff vĩnh viễn.",
-      f4_title: "🪄 18 kỹ năng",
-      f4_body: "Sét, hố đen, hào quang, thiên thạch, ngưng đọng thời gian… nâng cấp theo cấp độ và kích hoạt chủ động bằng phím E.",
-      f5_title: "🎒 72 trang bị",
-      f5_body: "6 ô trang bị, 5 phẩm cấp từ Thường đến Huyền Thoại, nâng cấp, đột phá và quay Gacha bằng vàng kiếm được.",
-      f6_title: "💾 Lưu an toàn",
-      f6_body: "Tự động lưu trận dở dang, hồ sơ kỷ lục và chống mở hai cửa sổ game cùng lúc để bảo vệ dữ liệu.",
+      f3_title: "5 thủ lĩnh",
+      f3_body: "Cứ năm phút một thủ lĩnh: Hư Vô, Viêm Ma, Tử Thần, Cự Thần, Huyết Ma. Hạ gục để nhận buff vĩnh viễn.",
+      f4_title: "18 kỹ năng",
+      f4_body: "Sét, hố đen, hào quang, thiên thạch, ngưng đọng thời gian. Nâng theo cấp độ và kích hoạt chủ động bằng phím E.",
+      f5_title: "72 trang bị",
+      f5_body: "Sáu ô trang bị, năm phẩm cấp từ Thường đến Huyền Thoại, nâng cấp, đột phá và quay Gacha bằng vàng.",
+      f6_title: "Lưu an toàn",
+      f6_body: "Tự động lưu mỗi 30 giây, sao lưu dự phòng và chống mở hai cửa sổ game cùng lúc.",
       screens_title: "Hình ảnh trong game",
       shots_note: "Ảnh chụp trong game sẽ được cập nhật kèm bản phát hành tiếp theo.",
       shot1: "Chiến đấu giữa bầy quái",
@@ -41,34 +41,33 @@
       shot3: "Chọn nâng cấp khi lên cấp",
       controls_title: "Điều khiển",
       c_move: "di chuyển",
-      c_dash: "lướt (bất tử trong lúc lướt)",
+      c_dash: "lướt, bất tử trong lúc lướt",
       c_shoot: "bắn về hướng ngắm",
       c_auto: "bật/tắt tự động bắn",
       c_skill: "kỹ năng chủ động",
       c_switch: "đổi kỹ năng chủ động",
-      c_pause: "tạm dừng / trang bị / thoát menu",
+      c_pause: "tạm dừng, trang bị, thoát menu",
       download_title: "Tải game",
-      download_lede: "Miễn phí. Giải nén và chạy — không cần cài đặt.",
       download_btn: "Tải bản mới nhất",
       install_title: "Hướng dẫn cài đặt",
       install_1: "Tải file .zip ở trên và giải nén ra một thư mục bất kỳ.",
-      install_2: "Chạy <b>PixelHordeSurvival.exe</b>.",
+      install_2: "Chạy <b>Pixel Horde Survival.exe</b>.",
       install_3: "Nếu Windows SmartScreen cảnh báo: bấm <b>More info</b> → <b>Run anyway</b> (game chưa ký số).",
       install_4: "Dữ liệu lưu tại <code>%APPDATA%\\Godot\\app_userdata\\Pixel Horde Survival</code>.",
       req_title: "Cấu hình tối thiểu",
       req_1: "Windows 10/11 64-bit, CPU 2 nhân 2.0 GHz",
       req_2: "RAM 2 GB, GPU hỗ trợ OpenGL 3.3 / Direct3D 12",
       req_3: "Khoảng 120 MB dung lượng trống",
-      changelog_title: "Lịch sử cập nhật",
+      changelog_title: "Cập nhật",
       loading: "Đang tải…",
-      load_error: "Không tải được version.json — hãy xem trực tiếp trang phát hành.",
-      faq_title: "Câu hỏi thường gặp",
+      load_error: "Không tải được version.json — xem trực tiếp trang phát hành.",
+      faq_title: "Hỏi đáp",
       faq_q1: "Game có mất phí không?",
-      faq_a1: "Không. Bản Windows hoàn toàn miễn phí, không quảng cáo và không có giao dịch trong game.",
-      faq_q2: "Có bản cho điện thoại / web không?",
+      faq_a1: "Không. Bản Windows miễn phí hoàn toàn, không quảng cáo và không có giao dịch trong game.",
+      faq_q2: "Có bản cho điện thoại hoặc trình duyệt không?",
       faq_a2: "Giao diện cảm ứng đã có sẵn trong game; bản Android và bản chơi trên trình duyệt đang được hoàn thiện.",
       faq_q3: "Làm sao biết có bản cập nhật mới?",
-      faq_a3: "Mở game và vào Cài đặt → Kiểm tra cập nhật, hoặc xem mục Lịch sử cập nhật trên trang này.",
+      faq_a3: "Mở game, vào Cài đặt → Kiểm tra cập nhật, hoặc xem mục Cập nhật trên trang này.",
       faq_q4: "Báo lỗi ở đâu?",
       faq_a4: "Gửi báo lỗi kèm ảnh chụp màn hình qua",
       footer_note: "Trang giới thiệu chính thức. Game phát hành miễn phí."
@@ -79,26 +78,26 @@
       nav_download: "Download",
       nav_changelog: "Updates",
       nav_faq: "FAQ",
-      hero_eyebrow: "Endless survival • Horde shooter roguelite",
+      hero_eyebrow: "Endless survival · Horde shooter roguelite",
       hero_title: "Outlast the horde. Grow stronger every wave.",
-      hero_lede: "Pixel Horde Survival is an endless survival game: one life, enemies that scale every minute, and a boss every five minutes. Level up, pick skills, collect gear and chase your own record.",
-      cta_download: "Download for Windows — free",
+      hero_lede: "One life, enemies that scale every minute, and a boss every five minutes. Level up, pick skills, collect gear and chase your own record.",
+      cta_download: "Download for Windows",
       cta_features: "See features",
       hero_meta_os: "Windows 10/11 · 64-bit · No installer needed",
       features_title: "Core mechanics",
-      features_lede: "Everything you expect from an endless survival game — and a bit more.",
-      f1_title: "🌊 Endless waves",
+      features_lede: "Everything an endless survival game needs.",
+      f1_title: "Endless waves",
       f1_body: "A new wave every 60 seconds, mid-wave surges and formations: surround, pincer and four-corner ambush.",
-      f2_title: "👹 11 enemy types",
+      f2_title: "11 enemy types",
       f2_body: "Blinking assassins, fan-shot mages, summoning necromancers, knockback-immune golems and piercing laser eyes.",
-      f3_title: "👑 5 bosses",
-      f3_body: "A boss every 5 minutes: Void, Inferno, Reaper, Titan and Blood Sovereign. Defeat them for permanent buffs.",
-      f4_title: "🪄 18 skills",
-      f4_body: "Lightning, void rift, holy aura, meteor, time stasis… upgraded as you level and cast with the E key.",
-      f5_title: "🎒 72 gear items",
-      f5_body: "6 slots, 5 rarities from Common to Mythic, upgrades, breakthroughs and a gold gacha.",
-      f6_title: "💾 Safe saves",
-      f6_body: "Autosaves your run and records, and blocks opening two game windows at once to protect your data.",
+      f3_title: "5 bosses",
+      f3_body: "A boss every five minutes: Void, Inferno, Reaper, Titan and Blood Sovereign. Defeat them for permanent buffs.",
+      f4_title: "18 skills",
+      f4_body: "Lightning, void rift, holy aura, meteor, time stasis. Upgraded as you level and cast with the E key.",
+      f5_title: "72 gear items",
+      f5_body: "Six slots, five rarities from Common to Mythic, upgrades, breakthroughs and a gold gacha.",
+      f6_title: "Safe saves",
+      f6_body: "Autosaves every 30 seconds with a backup copy, and blocks opening two game windows at once.",
       screens_title: "Screenshots",
       shots_note: "In-game screenshots will be added with the next release.",
       shot1: "Fighting inside the horde",
@@ -106,34 +105,33 @@
       shot3: "Level-up upgrade choice",
       controls_title: "Controls",
       c_move: "move",
-      c_dash: "dash (invulnerable while dashing)",
+      c_dash: "dash, invulnerable while dashing",
       c_shoot: "shoot toward the cursor",
       c_auto: "toggle auto-shoot",
       c_skill: "cast active skill",
       c_switch: "switch active skill",
-      c_pause: "pause / equipment / back",
+      c_pause: "pause, equipment, back",
       download_title: "Download",
-      download_lede: "Free. Unzip and play — no installer required.",
       download_btn: "Download latest",
       install_title: "Install steps",
       install_1: "Download the .zip above and extract it anywhere.",
-      install_2: "Run <b>PixelHordeSurvival.exe</b>.",
+      install_2: "Run <b>Pixel Horde Survival.exe</b>.",
       install_3: "If Windows SmartScreen warns you: click <b>More info</b> → <b>Run anyway</b> (the build is not code-signed).",
       install_4: "Save data lives in <code>%APPDATA%\\Godot\\app_userdata\\Pixel Horde Survival</code>.",
       req_title: "Minimum requirements",
       req_1: "Windows 10/11 64-bit, dual-core 2.0 GHz CPU",
       req_2: "2 GB RAM, GPU with OpenGL 3.3 / Direct3D 12 support",
       req_3: "About 120 MB free disk space",
-      changelog_title: "Update history",
+      changelog_title: "Updates",
       loading: "Loading…",
       load_error: "Could not load version.json — see the releases page directly.",
-      faq_title: "Frequently asked questions",
+      faq_title: "FAQ",
       faq_q1: "Is the game free?",
       faq_a1: "Yes. The Windows build is completely free, with no ads and no in-game purchases.",
-      faq_q2: "Are there mobile / browser builds?",
+      faq_q2: "Are there mobile or browser builds?",
       faq_a2: "Touch controls already ship inside the game; Android and browser builds are being finished.",
       faq_q3: "How do I know when there is an update?",
-      faq_a3: "Open the game and use Settings → Check for updates, or read the Update history section on this page.",
+      faq_a3: "Open the game and use Settings → Check for updates, or read the Updates section on this page.",
       faq_q4: "Where do I report bugs?",
       faq_a4: "Send a report with a screenshot via",
       footer_note: "Official landing page. The game is released for free."
@@ -141,6 +139,7 @@
   };
 
   var currentLang = "vi";
+  var lastData = null;
 
   function t(key) {
     var table = I18N[currentLang] || I18N.vi;
@@ -166,13 +165,19 @@
     try { localStorage.setItem("phs_lang", currentLang); } catch (e) { /* ignore */ }
   }
 
-  var lastData = null;
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
 
   function renderChangelog(data) {
     var host = document.getElementById("changelog-list");
     if (!host) return;
     if (!data || !data.changelog || !data.changelog.length) {
-      host.innerHTML = '<p class="muted">' + t("load_error") + "</p>";
+      host.innerHTML = '<p class="meta">' + escapeHtml(t("load_error")) + "</p>";
       return;
     }
     var html = "";
@@ -192,14 +197,6 @@
       html += "</article>";
     }
     host.innerHTML = html;
-  }
-
-  function escapeHtml(value) {
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
   }
 
   function applyVersion(data) {
@@ -225,7 +222,7 @@
     if (extraEl) {
       var parts = [];
       if (size) parts.push(size);
-      if (sha) parts.push("SHA-256: " + sha);
+      if (sha) parts.push("SHA-256 " + sha);
       extraEl.textContent = parts.join(" · ");
     }
   }
