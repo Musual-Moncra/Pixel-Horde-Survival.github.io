@@ -235,6 +235,20 @@
     if (versionBadge && data.version) versionBadge.textContent = data.version;
     if (dateEl && data.release_date) dateEl.textContent = data.release_date;
 
+    // GitHub Pages cache index.html/index.pck theo cùng một URL trong một
+    // khoảng thời gian. Gắn phiên bản vào URL /play/ để mỗi release tạo URL
+    // mới, buộc trình duyệt tải lại shell thay vì mở nhầm bản đã cache.
+    if (data.version) {
+      var playLinks = document.querySelectorAll('a[href*="play/"]');
+      for (var pi = 0; pi < playLinks.length; pi++) {
+        try {
+          var playUrl = new URL(playLinks[pi].href, window.location.href);
+          playUrl.searchParams.set("v", data.version);
+          playLinks[pi].href = playUrl.href;
+        } catch (e) { /* giữ href gốc nếu URL không hợp lệ */ }
+      }
+    }
+
     var win = (data.download && data.download.windows) || null;
     var url = (win && win.url) ? win.url : RELEASES_LATEST;
     var releasePage = (win && win.release_page) ? win.release_page : RELEASES_LATEST;
