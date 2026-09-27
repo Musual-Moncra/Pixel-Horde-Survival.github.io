@@ -542,8 +542,13 @@ const GODOT_THREADS_ENABLED = false;
 		let done = 0;
 
 		function warm(file) {
-			// force-cache: lần đầu tải qua mạng, các lần sau lấy từ cache trình duyệt.
-			return fetch(file.url, { cache: 'force-cache' }).then(function (res) {
+			// no-cache (KHÔNG dùng force-cache): luôn hỏi lại server, nhận 304 nếu
+			// file chưa đổi và nhận bản mới nếu đã deploy bản khác. Trước đây dùng
+			// force-cache nên trình duyệt giữ mãi index.pck cũ, khiến người chơi mở
+			// lại vẫn thấy bản cũ dù trang đã cập nhật.
+			// Việc này cũng làm mới cache cho lần tải kế tiếp của chính engine
+			// (engine gọi preloadFile('index.pck') ngay sau bước warm-up).
+			return fetch(file.url, { cache: 'no-cache' }).then(function (res) {
 				if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + file.url);
 				const len = file.size || Number(res.headers.get('content-length') || 0);
 				if (!res.body || !res.body.getReader) {

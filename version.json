@@ -1,18 +1,32 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "release_date": "2026-09-27",
-  "notes": "Bản phát hành đầu tiên: 11 chủng quái, 18 kỹ năng, 5 thủ lĩnh, 72 trang bị và vòng lặp sinh tồn vô tận.",
+  "notes": "Bản cập nhật lớn: hình ảnh nhân vật/quái/thủ lĩnh mới, giao diện đồng bộ, cân bằng lại toàn bộ độ khó và sửa nhiều lỗi.",
   "download": {
     "windows": {
       "label": "Windows 10 / 11 (64-bit)",
       "url": "https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/latest/download/PixelHordeSurvival-windows-x86_64.zip",
       "file_name": "PixelHordeSurvival-windows-x86_64.zip",
-      "size": "37.2 MB",
-      "sha256": "15e4d1377e14f850bae9880e0d4c2e269bf15e77b06b5a122bbb6c2be3a58599",
-      "release_page": "https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/latest"
+      "size": "36.8 MB",
+      "sha256": "14ed0eabcb849cd1cdf26b2293b5213bb99e368323e1e8d689b3ab5ff8f43214",
+      "release_page": "https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/latest",
+      "versioned_url": "https://github.com/Musual-Moncra/Pixel-Horde-Survival.github.io/releases/download/v0.1.1/PixelHordeSurvival-windows-x86_64.zip"
     }
   },
   "changelog": [
+    {
+      "version": "0.1.1",
+      "date": "2026-09-27",
+      "items": [
+        "Hình ảnh mới: nhân vật, 11 chủng quái, 5 thủ lĩnh và vũ khí được vẽ lại; thủ lĩnh có phase 2 dưới 35% máu",
+        "Cân bằng lại độ khó: máu quái +35%/5 phút kèm sát thương +8%, Boss trâu hơn, thưởng Boss và trụ hồi máu giảm",
+        "Mana thành ràng buộc thật (hồi 5.5 MP/s, chi phí kỹ năng tăng), giới hạn giảm hồi chiêu 40%",
+        "Sửa lỗi nghiêm trọng: độ khó quái không tăng theo thời gian, Lưỡi Hái gần như không chém trúng, Thiên Thạch thiếu sát thương dung nham",
+        "Hiệu năng: hàng đợi sinh quái, throttle HUD, giới hạn đạn, bỏ rò rỉ bộ nhớ khi thoát",
+        "Menu chính có nền động, theme giao diện dùng chung, hỗ trợ đa ngôn ngữ Việt/Anh",
+        "Bản web tự làm mới bản build sau mỗi lần cập nhật (sửa lỗi trình duyệt giữ bản cũ)"
+      ]
+    },
     {
       "version": "0.1.0",
       "date": "2026-09-27",
