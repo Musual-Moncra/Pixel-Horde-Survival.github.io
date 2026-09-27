@@ -46,6 +46,14 @@ cd /Users/musual/GameVoHan
 ./tools/publish_web_to_site.sh       # đồng bộ sang <trang chủ>/play/
 ```
 
+- Từ v0.1.2 bản web **chỉ dành cho điện thoại/máy tính bảng**: `web/shell.html`
+  nhận diện thiết bị và hiện bảng "tải bản Windows (.exe)" trên PC (không tải
+  engine). Godot chặn lần hai qua cờ `window.godotWebMobileAllowed`
+  (`scripts/game_info.gd`). Thêm `?pc=1` vào URL để bỏ qua cổng chặn khi thử
+  nghiệm trên máy tính.
+- Kiểm thử cả hai nhánh: `node tools/web_smoke_test.mjs "http://localhost:8080/play/?autostart=1"`
+  (PC bị chặn + không tải wasm; điện thoại tải trước, vào game, chụp khung hình).
+
 Sau đó commit thư mục `play/` cùng với bước 7.
 
 - `index.wasm` (~38 MB) là engine, gần như không đổi giữa các bản nên git chỉ lưu một lần;
